@@ -34,11 +34,29 @@
   });
   const railLinks = $$('a', rail);
 
+  $$('.section-head h2, .maker-side h2, .judge-side h2, .brain-copy h2, .architecture-copy h2, .north-copy h2').forEach((title, titleIndex) => {
+    title.classList.add('motion-title', ['motion-left','motion-right','motion-scale','motion-cut'][titleIndex % 4]);
+    [...title.childNodes].forEach(node => {
+      if (node.nodeType !== Node.TEXT_NODE || !node.textContent.trim()) return;
+      const fragment = document.createDocumentFragment();
+      node.textContent.split(/(\s+)/).forEach(part => {
+        if (!part.trim()) { fragment.append(part); return; }
+        const span = document.createElement('span'); span.className = 'kinetic-word'; span.textContent = part; fragment.append(span);
+      });
+      node.replaceWith(fragment);
+    });
+    $$('.kinetic-word', title).forEach((word, index) => word.style.setProperty('--word-index', index));
+  });
+
   const setChapter = (section) => {
     const index = sections.indexOf(section);
     railLinks.forEach((link, i) => link.classList.toggle('active', i === index));
     chapterIndex.textContent = String(index + 1).padStart(2, '0');
     chapterTitle.textContent = section.dataset.title;
+    if (!reduceMotion && !section.classList.contains('scene-seen')) {
+      section.classList.add('scene-seen','scene-enter');
+      setTimeout(() => section.classList.remove('scene-enter'), 800);
+    }
   };
 
   const revealObserver = new IntersectionObserver(entries => {
@@ -275,6 +293,53 @@
     layer.classList.add('active');
     layer.animate && !reduceMotion && layer.animate([{filter:'brightness(1)'},{filter:'brightness(1.8)'},{filter:'brightness(1)'}],{duration:650,easing:'ease-out'});
   }));
+
+  const architectureStage = $('#architectureStage');
+  const architectureCanvas = $('#architectureCanvas');
+  const architecturePlay = $('#architecturePlay');
+  if (architectureCanvas && architectureStage && architecturePlay) {
+    const ctx = architectureCanvas.getContext('2d');
+    const architectureStep = $('#architectureStep');
+    const architectureNarrative = $('#architectureNarrative');
+    const architectureTime = $('#architectureTime');
+    const phases = [
+      ['INTELLIGENCE','Contexto, sinais e intenção são percebidos.'],['DECISION','O pedido é convertido no problema real.'],['PLANNING','O Orchestrator escolhe risco, profundidade e rota.'],['SPECIALISTS','A célula certa é convocada para produzir.'],['CRITIQUE','GRAAL Red interrompe e ataca a solução.'],['VALIDATION','Evidência, marca, dados e técnica atravessam gates.'],['EXECUTION','A entrega validada chega ao mundo.'],['MEASUREMENT','Resultados reais substituem opiniões.'],['LEARNING','Memória e evals melhoram o próximo job.']
+    ];
+    let architectureRaf = 0, architectureStart = 0, architectureRunning = false;
+    const fitArchitecture = () => {
+      const box = architectureStage.getBoundingClientRect(); const ratio = Math.min(devicePixelRatio || 1, 2);
+      architectureCanvas.width = Math.round(box.width * ratio); architectureCanvas.height = Math.round(box.height * ratio); ctx.setTransform(ratio,0,0,ratio,0,0); drawArchitecture(0);
+    };
+    const drawArchitecture = progressValue => {
+      const w=architectureCanvas.clientWidth,h=architectureCanvas.clientHeight,cx=w/2,cy=h/2; ctx.clearRect(0,0,w,h);
+      const mobile=w<600, radius=Math.min(w*(mobile?.37:.39),h*(mobile?.33:.38));
+      ctx.save(); ctx.translate(cx,cy); ctx.rotate(-Math.PI/2);
+      ctx.strokeStyle='rgba(247,234,217,.10)';ctx.lineWidth=1;ctx.setLineDash([3,8]);ctx.beginPath();ctx.arc(0,0,radius,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+      const activeFloat=progressValue*phases.length,active=Math.min(phases.length-1,Math.floor(activeFloat)),local=activeFloat-active;
+      for(let i=0;i<phases.length;i++){
+        const a=i/phases.length*Math.PI*2; const x=Math.cos(a)*radius,y=Math.sin(a)*radius; const isActive=i===active,isDone=i<active;
+        ctx.save();ctx.translate(x,y);ctx.rotate(Math.PI/2);
+        ctx.fillStyle=isActive?'#e04030':isDone?'#ff7466':'rgba(247,234,217,.14)';ctx.beginPath();ctx.arc(0,0,isActive?9:5,0,Math.PI*2);ctx.fill();
+        if(isActive){ctx.strokeStyle='rgba(224,64,48,.35)';ctx.lineWidth=1;ctx.beginPath();ctx.arc(0,0,18+Math.sin(local*Math.PI)*9,0,Math.PI*2);ctx.stroke()}
+        ctx.fillStyle=isActive?'#f7ead9':'rgba(247,234,217,.52)';ctx.font=`600 ${mobile?7:9}px Syne`;ctx.textAlign='center';ctx.fillText(phases[i][0],0,i<5?-18:25);ctx.restore();
+      }
+      if(progressValue>0){const path=Math.min(activeFloat,phases.length-.001)/phases.length*Math.PI*2;const px=Math.cos(path)*radius,py=Math.sin(path)*radius;ctx.fillStyle='#f7ead9';ctx.shadowColor='#e04030';ctx.shadowBlur=24;ctx.beginPath();ctx.arc(px,py,7,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0}
+      ctx.restore();
+      const coreR=mobile?66:88;const glow=ctx.createRadialGradient(cx,cy,0,cx,cy,coreR*1.6);glow.addColorStop(0,'rgba(224,64,48,.42)');glow.addColorStop(1,'rgba(224,64,48,0)');ctx.fillStyle=glow;ctx.beginPath();ctx.arc(cx,cy,coreR*1.6,0,Math.PI*2);ctx.fill();ctx.strokeStyle='rgba(255,116,102,.6)';ctx.lineWidth=1;ctx.beginPath();ctx.arc(cx,cy,coreR,0,Math.PI*2);ctx.stroke();ctx.fillStyle='#f7ead9';ctx.textAlign='center';ctx.font=`700 ${mobile?11:14}px Syne`;ctx.fillText('ORCHESTRATOR',cx,cy-2);ctx.fillStyle='#ff7466';ctx.font=`600 ${mobile?7:9}px Syne`;ctx.fillText('COGNITIVE CORE',cx,cy+17);
+      if(progressValue>.42&&progressValue<.66){ctx.strokeStyle=`rgba(224,64,48,${.3+Math.sin(progressValue*50)*.25})`;ctx.lineWidth=mobile?8:14;ctx.beginPath();ctx.moveTo(cx-radius*.92,cy);ctx.lineTo(cx+radius*.92,cy);ctx.stroke();ctx.fillStyle='#e04030';ctx.font=`800 ${mobile?32:54}px Syne`;ctx.fillText('INTERRUPT',cx,cy-radius*.48)}
+    };
+    const tickArchitecture = time => {
+      if(!architectureStart)architectureStart=time;const elapsed=time-architectureStart,duration=20500,p=Math.min(elapsed/duration,1);drawArchitecture(p);
+      const phaseIndex=Math.min(phases.length-1,Math.floor(p*phases.length));architectureStep.textContent=phases[phaseIndex][0];architectureNarrative.textContent=phases[phaseIndex][1];architectureTime.textContent=`00:${String(Math.floor(elapsed/1000)).padStart(2,'0')}`;
+      if(p<1&&architectureRunning)architectureRaf=requestAnimationFrame(tickArchitecture);else{architectureRunning=false;architectureStage.classList.remove('playing');architectureStage.classList.add('complete');architecturePlay.querySelector('span').innerHTML='PLAY<br>AGAIN';architecturePlay.setAttribute('aria-label','Reproduzir novamente a animação completa do GRAAL OS')}
+    };
+    architecturePlay.addEventListener('click',()=>{
+      cancelAnimationFrame(architectureRaf);architectureStart=0;architectureStage.classList.remove('complete');
+      if(reduceMotion){drawArchitecture(1);architectureStep.textContent=phases.at(-1)[0];architectureNarrative.textContent=phases.at(-1)[1];architectureTime.textContent='00:20';architectureStage.classList.add('complete');architecturePlay.querySelector('span').innerHTML='PLAY<br>AGAIN';architecturePlay.setAttribute('aria-label','Reproduzir novamente a animação completa do GRAAL OS');return}
+      architectureRunning=true;architectureStage.classList.add('playing');architecturePlay.setAttribute('aria-label','Animação do GRAAL OS em reprodução');architectureRaf=requestAnimationFrame(tickArchitecture)
+    });
+    addEventListener('resize',fitArchitecture);fitArchitecture();
+  }
 
   document.addEventListener('keydown', event => {
     if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
