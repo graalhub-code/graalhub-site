@@ -61,6 +61,21 @@ const ROW_2: Logo[] = [
   { src: "/marcas/idw.webp", alt: "IDW" },
 ];
 
+// Every logo pooled together and reshuffled into fresh rows on each page
+// load — see the useState/useEffect pair in Marcas() below for why the
+// split happens there instead of here (has to happen client-side, after
+// the server-rendered HTML that hydration checks against is already fixed).
+const ALL_LOGOS: Logo[] = [...ROW_1, ...ROW_2];
+
+function shuffled<T>(arr: T[]): T[] {
+  const copy = [...arr];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
 function LogoTile({ src, alt, scale = 1 }: Logo) {
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
@@ -132,6 +147,26 @@ function Row({ logos, reverse }: { logos: Logo[]; reverse?: boolean }) {
 export default function Marcas() {
   const { t } = useLocale();
 
+  // Start with the fixed split (row1 = first half, row2 = second half) so
+  // the very first client render matches the server-rendered HTML exactly
+  // — reshuffling inside the initializer would desync from the static HTML
+  // and trip a hydration mismatch. Once mounted, useEffect re-splits the
+  // pool with a fresh shuffle — this runs on every real page load (a static
+  // export means the HTML itself never changes, but the JS that hydrates
+  // it re-executes fresh each time a browser loads the page), which is
+  // what actually delivers "shuffled on every load."
+  const half = Math.ceil(ALL_LOGOS.length / 2);
+  const [rows, setRows] = useState(() => ({
+    row1: ALL_LOGOS.slice(0, half),
+    row2: ALL_LOGOS.slice(half),
+  }));
+
+  useEffect(() => {
+    const pool = shuffled(ALL_LOGOS);
+    setRows({ row1: pool.slice(0, half), row2: pool.slice(half) });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <section
       id="marcas"
@@ -159,8 +194,8 @@ export default function Marcas() {
           stopping short at the content gutter like the heading above it. */}
       <div className="-mx-[var(--gap)] border-t border-[var(--line)]">
         <Reveal className="flex flex-col gap-8 py-10 sm:gap-10">
-          <Row logos={ROW_1} />
-          <Row logos={ROW_2} reverse />
+          <Row logos={rows.row1} />
+          <Row logos={rows.row2} reverse />
         </Reveal>
       </div>
     </section>
