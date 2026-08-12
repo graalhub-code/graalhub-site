@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+:root {
+  --red: #e04030;
+  --ink: #171414;
+  --bg: #fbf7f0;
+  --line: rgba(23, 20, 20, 0.14);
+  --stone: #8c7c6c;
+  --stone-dim: #5c5248;
+  --ease: cubic-bezier(0.16, 0.8, 0.24, 1);
+  --gap: clamp(20px, 6vw, 80px);
+}
+
+/* theme scopes: same grid/typography system, alternating background per
+   section — see /root/work/graal/site-v4-concepts/concept-d.html for the
+   approved static reference this is built from */
+.t-light {
+  --red: #e04030;
+  --ink: #171414;
+  --bg: #fbf7f0;
+  --line: rgba(23, 20, 20, 0.14);
+  --stone: #8c7c6c;
+  --stone-dim: #5c5248;
+}
+.t-dark {
+  --red: #e9694f;
+  --ink: #f3ece2;
+  --bg: #141110;
+  --line: rgba(243, 236, 226, 0.13);
+  --stone: #9c8c7c;
+  --stone-dim: #b9ab9a;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-bg: var(--bg);
+  --color-red: var(--red);
+  --color-line: var(--line);
+  --color-stone: var(--stone);
+  --color-stone-dim: var(--stone-dim);
+  --font-sans: "Montserrat", sans-serif;
+  --font-mono: "Geist Mono", monospace;
+}
+
+/* base-layer resets — kept inside Tailwind's own `base` layer (instead of
+   unlayered top-level rules) so utility classes like text-[#EDE7DC] always
+   win over these defaults. Cascade layers ignore source order: an unlayered
+   rule beats every layered one regardless of where it's written, which
+   silently broke every Tailwind text-color utility on <a> tags site-wide
+   until this was scoped correctly. */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: #fbf7f0;
+    color: var(--ink);
+    font-family: "Montserrat", sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  a {
+    color: inherit;
+  }
+}
+
+::selection {
+  background: var(--red);
+  color: #fbf7f0;
+}
+
+/* keyboard-only focus ring — never shown for mouse/touch, always shown for
+   tab navigation, so the thin underline-based link style doesn't leave
+   keyboard users guessing where focus is */
+:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+/* skeleton shimmer used while images / async content are loading */
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--line) 0%,
+    rgba(140, 124, 108, 0.28) 50%,
+    var(--line) 100%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+/* logo marquee — paused automatically under prefers-reduced-motion via the
+   motion-safe: variant applied where this is used */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes marquee-rev {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
