@@ -25,7 +25,6 @@ const ROW_1: Logo[] = [
   { src: "/marcas/pantene.webp", alt: "Pantene Pro-V" },
   { src: "/marcas/bauducco.webp", alt: "Bauducco" },
   { src: "/marcas/lor.webp", alt: "L'Or" },
-  { src: "/marcas/real-do-solar.webp", alt: "Real do Solar" },
   { src: "/marcas/becel.webp", alt: "Becel" },
   { src: "/marcas/nestle.webp", alt: "Nestlé" },
   { src: "/marcas/kibon.webp", alt: "Kibon" },
@@ -76,10 +75,10 @@ function LogoTile({ src, alt }: Logo) {
   // letting object-contain fit inside evens out how much visual weight
   // each logo carries, regardless of its native aspect ratio.
   return (
-    <div className="relative mx-5 flex h-16 w-32 shrink-0 items-center justify-center sm:h-20 sm:w-40">
+    <div className="relative mx-4 flex h-11 w-20 shrink-0 items-center justify-center sm:h-14 sm:w-28">
       {!loaded && (
         <div
-          className="skeleton absolute inset-3 rounded-[3px]"
+          className="skeleton absolute inset-2 rounded-[3px]"
           aria-hidden="true"
         />
       )}
