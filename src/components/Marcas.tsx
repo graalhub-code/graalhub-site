@@ -68,17 +68,27 @@ function LogoTile({ src, alt }: Logo) {
     }
   }, []);
 
+  // Fixed box (both width AND height capped) instead of a height-only
+  // constraint — with only a height cap, a wide wordmark (Track&Field)
+  // fills much more horizontal space than a square mark (SSA Mapping) at
+  // the same height, so the square one reads as smaller/blurrier even
+  // though the source image is just as sharp. Capping both dimensions and
+  // letting object-contain fit inside evens out how much visual weight
+  // each logo carries, regardless of its native aspect ratio.
   return (
-    <div className="relative mx-1.5 flex h-14 shrink-0 items-center justify-center overflow-hidden rounded-[4px] bg-white px-5 sm:h-20 sm:px-7">
+    <div className="relative mx-5 flex h-16 w-32 shrink-0 items-center justify-center sm:h-20 sm:w-40">
       {!loaded && (
-        <div className="skeleton absolute inset-0 z-10" aria-hidden="true" />
+        <div
+          className="skeleton absolute inset-3 rounded-[3px]"
+          aria-hidden="true"
+        />
       )}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         ref={imgRef}
         src={src}
         alt={alt}
-        className="h-7 w-auto max-w-[120px] object-contain sm:h-9 sm:max-w-[150px]"
+        className="max-h-full max-w-full object-contain"
         onLoad={() => setLoaded(true)}
       />
     </div>
@@ -91,8 +101,8 @@ function Row({ logos, reverse }: { logos: Logo[]; reverse?: boolean }) {
       <div
         className={
           reverse
-            ? "flex w-max motion-safe:animate-[marquee-rev_46s_linear_infinite]"
-            : "flex w-max motion-safe:animate-[marquee_46s_linear_infinite]"
+            ? "flex w-max motion-safe:animate-[marquee-rev_58s_linear_infinite]"
+            : "flex w-max motion-safe:animate-[marquee_58s_linear_infinite]"
         }
       >
         {/* content duplicated exactly once so translateX(-50%) loops seamlessly */}
@@ -126,11 +136,11 @@ export default function Marcas() {
           </Reveal>
         </div>
       </div>
-      {/* t-dark scopes --bg to a near-black tone so the white logo cards read
-          as an intentional dark band instead of a mismatched stripe against
-          the section's light background. */}
-      <div className="t-dark bg-[var(--bg)]">
-        <Reveal className="flex flex-col gap-4 py-14">
+      {/* logos scroll straight over the section's own light background now —
+          no dark band behind them — separated by a hairline so the two
+          rows still read as a distinct "logo wall" module. */}
+      <div className="border-t border-[var(--line)]">
+        <Reveal className="flex flex-col gap-2 py-10">
           <Row logos={ROW_1} />
           <Row logos={ROW_2} reverse />
         </Reveal>
