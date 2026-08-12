@@ -41,10 +41,10 @@ const ROW_2: Logo[] = [
   { src: "/marcas/boi-dourado.webp", alt: "Boi Dourado" },
   { src: "/marcas/binder.webp", alt: "binder" },
   { src: "/marcas/adumar.webp", alt: "Adumar" },
-  { src: "/marcas/blue-city.webp", alt: "Blue City" },
-  { src: "/marcas/integral.webp", alt: "Integral" },
+  { src: "/marcas/blue-bay-realty.webp", alt: "Blue Bay Realty S.A." },
+  { src: "/marcas/colegio-integral.webp", alt: "Colégio Integral" },
   { src: "/marcas/debrito.webp", alt: "De Brito Brasil" },
-  { src: "/marcas/ssa-matine.webp", alt: "SSA Matinê" },
+  { src: "/marcas/ssa-mapping.webp", alt: "SSA Mapping" },
   { src: "/marcas/afropunk.webp", alt: "Afropunk" },
   { src: "/marcas/or.webp", alt: "OR" },
   { src: "/marcas/fenaba.webp", alt: "Fenaba" },
@@ -53,7 +53,7 @@ const ROW_2: Logo[] = [
   { src: "/marcas/iessi.webp", alt: "IESSI Music Entertainment" },
   { src: "/marcas/coruja.webp", alt: "Coruja" },
   { src: "/marcas/axe-mix.webp", alt: "Axé Mix" },
-  { src: "/marcas/mc-beats.webp", alt: "MC Beats" },
+  { src: "/marcas/rec-beat.webp", alt: "Rec Beat" },
 ];
 
 function LogoTile({ src, alt }: Logo) {
