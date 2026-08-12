@@ -53,6 +53,7 @@ const ROW_2: Logo[] = [
   { src: "/marcas/coruja.webp", alt: "Coruja" },
   { src: "/marcas/axe-mix.webp", alt: "Axé Mix" },
   { src: "/marcas/rec-beat.webp", alt: "Rec Beat" },
+  { src: "/marcas/idw.webp", alt: "IDW" },
 ];
 
 function LogoTile({ src, alt }: Logo) {
