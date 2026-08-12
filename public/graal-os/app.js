@@ -8,6 +8,21 @@
   const chapterIndex = $('#chapterIndex');
   const chapterTitle = $('#chapterTitle');
   let reduceMotion = reduceQuery.matches;
+  const cursorAura = $('#cursorAura');
+  if (cursorAura && matchMedia('(pointer:fine)').matches) {
+    let cursorX = innerWidth / 2, cursorY = innerHeight / 2, auraX = cursorX, auraY = cursorY;
+    addEventListener('pointermove', event => { cursorX = event.clientX; cursorY = event.clientY; }, { passive:true });
+    const driftCursor = () => {
+      auraX += (cursorX - auraX) * .16; auraY += (cursorY - auraY) * .16;
+      cursorAura.style.transform = `translate(${auraX - 43}px,${auraY - 43}px)`;
+      requestAnimationFrame(driftCursor);
+    };
+    driftCursor();
+    $$('a,button,.cog-card,.feature-card,.confidence-card').forEach(el => {
+      el.addEventListener('pointerenter', () => cursorAura.classList.add('hot'));
+      el.addEventListener('pointerleave', () => cursorAura.classList.remove('hot'));
+    });
+  }
 
   sections.forEach((section, index) => {
     const link = document.createElement('a');
@@ -48,6 +63,11 @@
   const onScroll = () => {
     const max = document.documentElement.scrollHeight - innerHeight;
     progress.style.width = `${max > 0 ? (scrollY / max) * 100 : 0}%`;
+    sections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      const sceneProgress = Math.max(-1, Math.min(1, (innerHeight * .5 - rect.top) / Math.max(rect.height, innerHeight)));
+      section.style.setProperty('--scene-progress', sceneProgress.toFixed(3));
+    });
   };
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
@@ -212,6 +232,49 @@
     };
     advance();
   });
+
+  $$('.cog-card').forEach((card, index) => {
+    card.tabIndex = 0;
+    const activate = () => {
+      $$('.cog-card').forEach(item => item.classList.remove('active'));
+      card.classList.add('active');
+    };
+    card.addEventListener('click', activate);
+    card.addEventListener('focus', activate);
+    if (!reduceMotion) setInterval(() => card.classList.toggle('auto-pulse'), 4200 + index * 170);
+  });
+
+  $$('.risk-meter > div:not(.risk-line)').forEach((level, index) => {
+    level.tabIndex = 0; level.setAttribute('role','button'); level.setAttribute('aria-label',`Selecionar risco ${level.innerText}`);
+    const selectRisk = () => {
+      $$('.risk-meter > div:not(.risk-line)').forEach(item => item.classList.remove('active'));
+      level.classList.add('active');
+      const note = $('.trust-note');
+      const reviews = ['resposta direta','micro QA','verificação independente','Red Team seletivo','gates executivos','veto obrigatório'];
+      note.textContent = `${level.querySelector('b').textContent}: ${reviews[index]} — profundidade e governança ajustadas automaticamente.`;
+    };
+    level.addEventListener('click', selectRisk); level.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') selectRisk(); });
+  });
+
+  const adversarial = $('.adversarial');
+  const redTrigger = $('.veto-stamp');
+  if (redTrigger) {
+    redTrigger.tabIndex = 0; redTrigger.setAttribute('role','button'); redTrigger.setAttribute('aria-label','Ativar ataque do Red Team');
+    const attack = () => { adversarial.classList.remove('attacking'); requestAnimationFrame(() => adversarial.classList.add('attacking')); setTimeout(() => adversarial.classList.remove('attacking'), 1800); };
+    redTrigger.addEventListener('click', attack); redTrigger.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') attack(); });
+  }
+
+  $$('.evolution-track article').forEach(stage => {
+    stage.tabIndex = 0;
+    const selectStage = () => { $$('.evolution-track article').forEach(item => item.classList.remove('current')); stage.classList.add('current'); };
+    stage.addEventListener('click', selectStage); stage.addEventListener('focus', selectStage);
+  });
+
+  $$('.memory-stack > button').forEach(layer => layer.addEventListener('click', () => {
+    $$('.memory-stack > button').forEach(item => item.classList.remove('active'));
+    layer.classList.add('active');
+    layer.animate && !reduceMotion && layer.animate([{filter:'brightness(1)'},{filter:'brightness(1.8)'},{filter:'brightness(1)'}],{duration:650,easing:'ease-out'});
+  }));
 
   document.addEventListener('keydown', event => {
     if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
