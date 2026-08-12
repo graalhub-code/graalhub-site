@@ -26,7 +26,7 @@ const ROW_1: Logo[] = [
   { src: "/marcas/spaten.webp", alt: "Spaten", scale: 1.2 },
   { src: "/marcas/ballantines.webp", alt: "Ballantine's" },
   { src: "/marcas/track-field.webp", alt: "Track&Field" },
-  { src: "/marcas/99-taxis.webp", alt: "99 Táxis" },
+  { src: "/marcas/99-taxis.webp", alt: "99 Táxis", scale: 1.2 },
   { src: "/marcas/pantene.webp", alt: "Pantene Pro-V", scale: 1.25 },
   { src: "/marcas/bauducco.webp", alt: "Bauducco" },
   { src: "/marcas/lor.webp", alt: "L'Or" },
@@ -48,7 +48,7 @@ const ROW_2: Logo[] = [
   { src: "/marcas/blue-bay-realty.webp", alt: "Blue Bay Realty S.A." },
   { src: "/marcas/colegio-integral.webp", alt: "Colégio Integral" },
   { src: "/marcas/debrito.webp", alt: "De Brito Brasil", scale: 1.2 },
-  { src: "/marcas/ssa-mapping.webp", alt: "SSA Mapping" },
+  { src: "/marcas/ssa-mapping.webp", alt: "SSA Mapping", scale: 1.2 },
   { src: "/marcas/afropunk.webp", alt: "Afropunk" },
   { src: "/marcas/or.webp", alt: "OR" },
   { src: "/marcas/fenaba.webp", alt: "Fenaba" },
@@ -57,7 +57,7 @@ const ROW_2: Logo[] = [
   { src: "/marcas/iessi.webp", alt: "IESSI Music Entertainment" },
   { src: "/marcas/coruja.webp", alt: "Coruja" },
   { src: "/marcas/axe-mix.webp", alt: "Axé Mix" },
-  { src: "/marcas/rec-beat.webp", alt: "Rec Beat" },
+  { src: "/marcas/rec-beat.webp", alt: "Rec Beat", scale: 1.2 },
   { src: "/marcas/idw.webp", alt: "IDW" },
 ];
 
@@ -131,8 +131,8 @@ function Row({ logos, reverse }: { logos: Logo[]; reverse?: boolean }) {
       <div
         className={
           reverse
-            ? "flex w-max motion-safe:animate-[marquee-rev_58s_linear_infinite]"
-            : "flex w-max motion-safe:animate-[marquee_58s_linear_infinite]"
+            ? "flex w-max items-center motion-safe:animate-[marquee-rev_58s_linear_infinite]"
+            : "flex w-max items-center motion-safe:animate-[marquee_58s_linear_infinite]"
         }
       >
         {/* content duplicated exactly once so translateX(-50%) loops seamlessly */}
