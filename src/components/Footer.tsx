@@ -14,7 +14,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="t-light bg-[var(--bg)] px-[var(--gap)] pt-14 pb-9 text-[var(--ink)]">
+    <footer className="t-light bg-[var(--bg)] px-[var(--gap)] pt-14 pb-24 text-[var(--ink)] sm:pb-9">
       {/* footer content sits in the same content column (col-start-3) every
           other section uses, instead of running full-bleed under the label
           gutter — keeps the left edge lined up when you scroll straight
