@@ -1,50 +1,228 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>GRAAL OS — Arquitetura Cognitiva</title>
-<meta name="theme-color" content="#05060a" />
-<style>
-:root{--bg:#05060a;--fg:#f3f5f7;--muted:#9ca6b3;--line:rgba(255,255,255,.12);--cyan:#73e7ff;--violet:#b99cff;--amber:#ffc76b;--card:rgba(255,255,255,.055);--mx:50%;--my:50%}
-*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-snap-type:y mandatory;background:var(--bg)}body{margin:0;background:var(--bg);color:var(--fg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(circle at var(--mx) var(--my),rgba(115,231,255,.10),transparent 24%),linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:auto,64px 64px,64px 64px;mask-image:linear-gradient(to bottom,black 0 94%,transparent)}
-.progress{position:fixed;left:0;top:0;height:3px;background:linear-gradient(90deg,var(--cyan),var(--violet));width:0;z-index:50;transition:width .25s ease}.nav{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:40;display:grid;gap:9px}.nav a{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.22);display:block;transition:.25s}.nav a.active{background:var(--cyan);transform:scale(1.4);box-shadow:0 0 18px rgba(115,231,255,.55)}
-.slide{min-height:100svh;scroll-snap-align:start;position:relative;display:grid;align-items:center;padding:clamp(34px,6vw,84px);isolation:isolate;overflow:hidden}.slide:after{content:"";position:absolute;inset:auto -20% -35% auto;width:70vw;height:70vw;border-radius:50%;background:radial-gradient(circle,rgba(185,156,255,.10),transparent 64%);z-index:-1}.wrap{width:min(1180px,100%);margin:auto;position:relative}.eyebrow{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--cyan);font-weight:700;margin:0 0 18px}.kicker{font-size:clamp(14px,1.5vw,18px);color:var(--muted);max-width:800px;line-height:1.55}.title{font-size:clamp(48px,9vw,126px);line-height:.88;letter-spacing:-.06em;margin:0 0 24px;font-weight:800;max-width:1050px}.title .accent{color:var(--cyan);text-shadow:0 0 28px rgba(115,231,255,.25)}h2{font-size:clamp(34px,6vw,78px);line-height:.97;letter-spacing:-.045em;margin:0 0 20px}h3{margin:0 0 8px;font-size:clamp(17px,2vw,22px)}p{margin:0;color:#d6dce3;line-height:1.58}.number{position:absolute;top:28px;right:32px;font-size:12px;color:rgba(255,255,255,.35);letter-spacing:.18em}.rule{height:1px;background:linear-gradient(90deg,var(--cyan),transparent);margin:28px 0 34px;opacity:.65}
-.grid2{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(22px,4vw,64px);align-items:center}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;backdrop-filter:blur(12px);min-height:128px}.card strong{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px}.card p{font-size:14px;color:#c8d0d8}.flow{display:grid;gap:10px}.step{display:grid;grid-template-columns:54px 1fr;gap:14px;align-items:center;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.035)}.step span{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:rgba(115,231,255,.10);color:var(--cyan);font-weight:800}.step b{font-size:16px}.step small{display:block;color:var(--muted);margin-top:2px}.chiprow{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.chip{border:1px solid var(--line);border-radius:999px;padding:8px 11px;font-size:12px;color:#dce4eb;background:rgba(255,255,255,.04)}
-.pipeline{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:32px;align-items:center}.node{min-height:106px;border:1px solid var(--line);border-radius:16px;padding:14px;background:rgba(255,255,255,.04);display:flex;flex-direction:column;justify-content:flex-end}.node em{font-style:normal;font-size:11px;color:var(--cyan);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}.node b{font-size:15px}.arrow{text-align:center;color:var(--muted);font-size:24px}.risk{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:24px}.risk div{padding:16px 10px;border-radius:14px;border:1px solid var(--line);text-align:center;background:rgba(255,255,255,.03)}.risk b{display:block;color:var(--cyan);font-size:18px}.risk small{color:var(--muted)}
-.quote{font-size:clamp(28px,4vw,54px);line-height:1.08;letter-spacing:-.03em;max-width:1000px}.quote strong{color:var(--cyan)}.footer-note{position:absolute;left:clamp(34px,6vw,84px);bottom:24px;color:rgba(255,255,255,.35);font-size:11px;letter-spacing:.14em;text-transform:uppercase}.controls{position:fixed;left:18px;bottom:18px;z-index:45;display:flex;gap:8px}.controls button{appearance:none;border:1px solid var(--line);background:rgba(5,6,10,.65);color:#fff;width:42px;height:42px;border-radius:12px;font-size:18px;backdrop-filter:blur(12px);cursor:pointer}.controls button:hover{border-color:rgba(115,231,255,.5)}
-.reveal{opacity:0;transform:translateY(26px);filter:blur(6px);transition:opacity .75s ease,transform .75s cubic-bezier(.2,.8,.2,1),filter .75s ease}.slide.active .reveal{opacity:1;transform:none;filter:none}.slide.active .d2{transition-delay:.10s}.slide.active .d3{transition-delay:.20s}.slide.active .d4{transition-delay:.30s}.glow{position:absolute;width:260px;height:260px;border-radius:50%;background:var(--cyan);filter:blur(110px);opacity:.09;right:4%;top:16%;animation:float 7s ease-in-out infinite alternate}@keyframes float{to{transform:translate(-40px,55px) scale(1.18)}}
-@media(max-width:900px){.grid2,.grid3,.grid4{grid-template-columns:1fr}.pipeline{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.risk{grid-template-columns:repeat(3,1fr)}.nav{display:none}.slide{padding:30px 22px 72px}.number{right:22px}.footer-note{left:22px}.card{min-height:auto}.controls{left:auto;right:14px}}
-@media(max-width:520px){.title{font-size:clamp(46px,17vw,78px)}h2{font-size:clamp(34px,12vw,54px)}.risk{grid-template-columns:repeat(2,1fr)}.step{grid-template-columns:44px 1fr}.step span{width:36px;height:36px}.kicker,p{font-size:14px}.slide{min-height:100dvh}.controls button{width:38px;height:38px}}
-@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}.reveal{opacity:1;transform:none;filter:none}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#05070a">
+  <meta name="description" content="GRAAL OS — a arquitetura cognitiva que transforma especialistas em uma organização que pensa, produz, valida e aprende.">
+  <title>GRAAL OS — Empresa Cognitiva</title>
+  <link rel="preload" href="/graal-os/style.css" as="style">
+  <link rel="stylesheet" href="/graal-os/style.css">
 </head>
 <body>
-<div class="progress" id="progress"></div><nav class="nav" id="nav" aria-label="Navegação"></nav><div class="controls"><button id="prev" aria-label="Anterior">↑</button><button id="next" aria-label="Próximo">↓</button></div>
+  <a class="skip" href="#main">Pular para o conteúdo</a>
+  <div class="ambient" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="scroll-progress" aria-hidden="true"><span id="progress"></span></div>
 
-<section class="slide" data-title="GRAAL OS"><div class="glow"></div><div class="number">01 / 10</div><div class="wrap"><p class="eyebrow reveal">GRAAL.HUB · ARQUITETURA COGNITIVA</p><h1 class="title reveal d2">GRAAL <span class="accent">OS</span></h1><p class="quote reveal d3">Não é uma coleção de bots. É uma <strong>organização de inteligência</strong> que entende, decide, produz, critica, valida e aprende.</p><div class="rule reveal d4"></div><p class="kicker reveal d4">Especialistas produzem. Estrategistas decidem. Revisores desafiam. Um orquestrador coordena.</p></div><div class="footer-note">empresa cognitiva · learning organization</div></section>
+  <header class="topbar">
+    <a class="wordmark" href="#hero" aria-label="GRAAL OS — voltar ao início"><span>GRAAL</span><b>OS</b></a>
+    <div class="topbar-center" aria-hidden="true"><span id="chapterIndex">01</span><i></i><span id="chapterTitle">O SISTEMA</span></div>
+    <button class="soundless" id="motionToggle" type="button" aria-pressed="false" aria-label="Reduzir animações">
+      <span class="motion-bars" aria-hidden="true"><i></i><i></i><i></i></span><em>Motion</em>
+    </button>
+  </header>
 
-<section class="slide" data-title="Princípio"><div class="number">02 / 10</div><div class="wrap grid2"><div><p class="eyebrow reveal">01 · O PRINCÍPIO</p><h2 class="reveal d2">Funções cognitivas antes de agentes.</h2><p class="kicker reveal d3">A arquitetura começa pelo que precisa acontecer mentalmente em cada trabalho — percepção, investigação, diagnóstico, estratégia, divergência, convergência, execução, crítica, verificação, simulação e aprendizado.</p></div><div class="grid2 reveal d4" style="grid-template-columns:1fr 1fr;gap:12px"><div class="card"><strong>Perceber</strong><p>Entender contexto, objetivo, restrições e lacunas.</p></div><div class="card"><strong>Decidir</strong><p>Separar problema real de pedido superficial.</p></div><div class="card"><strong>Executar</strong><p>Convocar especialistas adequados ao trabalho.</p></div><div class="card"><strong>Aprender</strong><p>Registrar resultados e atualizar memória institucional.</p></div></div></div></section>
+  <nav class="rail" aria-label="Capítulos da experiência" id="rail"></nav>
 
-<section class="slide" data-title="Orchestrator"><div class="number">03 / 10</div><div class="wrap grid2"><div><p class="eyebrow reveal">02 · HUB ORCHESTRATOR</p><h2 class="reveal d2">O COO cognitivo.</h2><p class="kicker reveal d3">O usuário não deveria precisar saber qual agente chamar. O Orchestrator transforma uma demanda humana em job estruturado, escolhe profundidade, risco, especialistas, dependências, revisores e próximo passo.</p><div class="chiprow reveal d4"><span class="chip">Fast</span><span class="chip">Professional</span><span class="chip">Critical</span><span class="chip">Dependencies</span><span class="chip">Escalation</span></div></div><div class="flow reveal d3"><div class="step"><span>1</span><div><b>Intake</b><small>objetivo · audiência · prazo · inputs</small></div></div><div class="step"><span>2</span><div><b>Diagnóstico</b><small>problema real · lacunas · hipóteses</small></div></div><div class="step"><span>3</span><div><b>Routing</b><small>quem entra · em que ordem · com qual contexto</small></div></div><div class="step"><span>4</span><div><b>Quality Gate</b><small>crítica · validação · aceite</small></div></div></div></div></section>
+  <main id="main">
+    <section class="scene hero" id="hero" data-title="O SISTEMA" data-short="Início">
+      <div class="hero-orbit" aria-hidden="true"><div></div><div></div><div></div><b>OS</b></div>
+      <div class="hero-copy reveal">
+        <p class="overline">GRAAL.HUB · INTELLIGENCE INFRASTRUCTURE</p>
+        <h1>Uma empresa<br><span>cognitiva.</span></h1>
+        <p class="hero-lead">Não uma coleção de bots. Um sistema operacional que entende, decide, convoca, produz, desafia, valida — e aprende.</p>
+        <a class="scroll-cue" href="#problem"><span>Entrar no sistema</span><i aria-hidden="true"></i></a>
+      </div>
+      <div class="hero-metrics reveal" aria-label="Princípios do GRAAL OS">
+        <div><strong>01</strong><span>orquestração central</span></div>
+        <div><strong>12</strong><span>funções cognitivas</span></div>
+        <div><strong>∞</strong><span>células adaptativas</span></div>
+      </div>
+      <p class="vertical-note" aria-hidden="true">FROM ASSISTANCE TO INTELLIGENCE</p>
+    </section>
 
-<section class="slide" data-title="Risco"><div class="number">04 / 10</div><div class="wrap"><p class="eyebrow reveal">03 · RISCO E CONFIANÇA</p><h2 class="reveal d2">Cautela precisa ser estrutural.</h2><p class="kicker reveal d3">O nível de risco muda o workflow. Quanto maior o impacto, maior a exigência de evidência, revisão independente, fontes, testes e direito de veto.</p><div class="risk reveal d4"><div><b>R0</b><small>trivial</small></div><div><b>R1</b><small>baixo</small></div><div><b>R2</b><small>moderado</small></div><div><b>R3</b><small>importante</small></div><div><b>R4</b><small>crítico</small></div><div><b>R5</b><small>alto impacto</small></div></div><div class="grid4 reveal d4" style="margin-top:18px"><div class="card"><strong>Known</strong><p>Evidência suficiente.</p></div><div class="card"><strong>Inferred</strong><p>Conclusão indireta.</p></div><div class="card"><strong>Assumed</strong><p>Hipótese operacional.</p></div><div class="card"><strong>Unknown</strong><p>Informação insuficiente.</p></div></div></div></section>
+    <section class="scene problem" id="problem" data-title="A MUDANÇA" data-short="Problema">
+      <div class="section-head reveal">
+        <p class="overline">01 · O PROBLEMA</p>
+        <h2>Agentes isolados executam.<br><span>Sistemas cognitivos evoluem.</span></h2>
+      </div>
+      <div class="split-contrast">
+        <article class="fragmented reveal">
+          <p class="side-label">ANTES · FRAGMENTAÇÃO</p>
+          <div class="loose-agents" aria-label="Agentes desconectados">
+            <span>Copy</span><span>Design</span><span>Data</span><span>Dev</span><span>Media</span><span>Strategy</span>
+          </div>
+          <p>O usuário escolhe ferramentas, repete contexto e vira o integrador manual.</p>
+        </article>
+        <div class="versus reveal" aria-hidden="true"><span>≠</span></div>
+        <article class="systemic reveal">
+          <p class="side-label">DEPOIS · COGNIÇÃO</p>
+          <div class="mini-system" aria-hidden="true"><span>PERCEBER</span><span>DECIDIR</span><b>ORCHESTRATOR</b><span>FAZER</span><span>VALIDAR</span></div>
+          <p>Uma intenção entra. O sistema diagnostica, monta a equipe e governa a entrega.</p>
+        </article>
+      </div>
+      <p class="thesis reveal">O salto não é ter mais agentes. É dar a eles <strong>arquitetura, oposição e memória.</strong></p>
+    </section>
 
-<section class="slide" data-title="Workflow"><div class="number">05 / 10</div><div class="wrap"><p class="eyebrow reveal">04 · WORKFLOW ADAPTATIVO</p><h2 class="reveal d2">A equipe nasce do problema.</h2><p class="kicker reveal d3">Campanha, site, dashboard, promoção ou apresentação: cada job monta uma célula diferente. Não existe força-tarefa permanente nem um agente faz-tudo.</p><div class="pipeline reveal d4"><div class="node"><em>Entrada</em><b>Request</b></div><div class="arrow">→</div><div class="node"><em>Decisão</em><b>Orchestrator</b></div><div class="arrow">→</div><div class="node"><em>Produção</em><b>Specialists</b></div><div class="arrow">→</div><div class="node"><em>Controle</em><b>Red Team + QA</b></div></div></div></section>
+    <section class="scene map-scene" id="map" data-title="MAPA DO OS" data-short="Mapa">
+      <div class="section-head compact reveal">
+        <p class="overline">02 · ARQUITETURA VIVA</p>
+        <h2>Um núcleo. Muitas inteligências.</h2>
+        <p>Explore as células para ver papel, entradas, saídas e gates.</p>
+      </div>
+      <div class="os-explorer reveal">
+        <div class="constellation" id="constellation" aria-label="Mapa interativo do GRAAL OS">
+          <div class="orbit-ring ring-a" aria-hidden="true"></div><div class="orbit-ring ring-b" aria-hidden="true"></div>
+          <div class="route-layer" id="routeLayer" aria-hidden="true"></div>
+          <button class="agent-node n-strategy" data-agent="strategy" type="button"><i></i><span>Strategy</span></button>
+          <button class="agent-node n-creative" data-agent="creative" type="button"><i></i><span>Creative</span></button>
+          <button class="agent-node n-data" data-agent="data" type="button"><i></i><span>Data</span></button>
+          <button class="agent-node n-digital" data-agent="digital" type="button"><i></i><span>Digital</span></button>
+          <button class="agent-node n-media" data-agent="media" type="button"><i></i><span>Media</span></button>
+          <button class="agent-node n-experience" data-agent="experience" type="button"><i></i><span>Experience</span></button>
+          <button class="agent-node n-red" data-agent="red" type="button"><i></i><span>Red Team</span></button>
+          <button class="agent-core active" data-agent="orchestrator" type="button"><span>HUB</span><b>ORCHESTRATOR</b><em id="coreState">COO cognitivo</em><i class="core-signal" aria-hidden="true"></i></button>
+        </div>
+        <aside class="agent-panel" id="agentPanel" aria-live="polite">
+          <p class="panel-kicker" id="agentType">CENTRAL INTELLIGENCE</p>
+          <h3 id="agentName">Hub Orchestrator</h3>
+          <p id="agentRole">Converte intenção humana em um job estruturado e governa a jornada inteira.</p>
+          <dl><div><dt>Inputs</dt><dd id="agentInputs">objetivo · audiência · prazo · contexto</dd></div><div><dt>Outputs</dt><dd id="agentOutputs">job graph · routing · nível de risco</dd></div><div><dt>Gate</dt><dd id="agentGate">clareza suficiente para começar</dd></div></dl>
+          <div class="nucleus-actions">
+            <button id="summonAgent" type="button">Convocar célula <span aria-hidden="true">→</span></button>
+            <button id="scanSystem" type="button">Orquestrar sistema <span aria-hidden="true">◎</span></button>
+          </div>
+          <div class="nucleus-live"><i aria-hidden="true"></i><span id="nucleusStatus">Núcleo online · aguardando intenção</span></div>
+          <div class="summoned-cells" id="summonedCells" aria-live="polite"></div>
+          <p class="panel-hint">Explore, convoque uma célula ou rode a orquestração completa.</p>
+        </aside>
+      </div>
+    </section>
 
-<section class="slide" data-title="Especialistas"><div class="number">06 / 10</div><div class="wrap"><p class="eyebrow reveal">05 · SPECIALIST CELLS</p><h2 class="reveal d2">Senioridade real, não personalidade.</h2><div class="grid4 reveal d3"><div class="card"><strong>Strategy</strong><p>problema de negócio · insight · proposition · KPI</p></div><div class="card"><strong>Creative</strong><p>ECD · Art · Copy · concept platform · craft</p></div><div class="card"><strong>Media</strong><p>offline · performance · canais · investimento · mensuração</p></div><div class="card"><strong>Experience</strong><p>promo · live marketing · phygital · operação</p></div><div class="card"><strong>Social</strong><p>community · creators · platform behavior · distribution</p></div><div class="card"><strong>Digital</strong><p>UX · UI · frontend · backend · analytics</p></div><div class="card"><strong>Data</strong><p>spreadsheets · modeling · dashboards · audit</p></div><div class="card"><strong>AV + Games</strong><p>film · photo · motion · interactive · game design</p></div></div></div></section>
+    <section class="scene cognition" id="cognition" data-title="FUNÇÕES" data-short="Funções">
+      <div class="section-head reveal"><p class="overline">03 · FUNÇÕES COGNITIVAS</p><h2>Antes dos cargos,<br><span>o pensamento.</span></h2></div>
+      <div class="cognitive-grid">
+        <article class="cog-card reveal"><b>01</b><i></i><h3>Percepção</h3><p>Entender situação, sinais, contexto e intenção.</p></article>
+        <article class="cog-card reveal"><b>02</b><i></i><h3>Investigação</h3><p>Localizar evidências e mapear o desconhecido.</p></article>
+        <article class="cog-card reveal"><b>03</b><i></i><h3>Diagnóstico</h3><p>Separar o problema real do pedido superficial.</p></article>
+        <article class="cog-card reveal"><b>04</b><i></i><h3>Estratégia</h3><p>Escolher onde jogar, como ganhar e medir.</p></article>
+        <article class="cog-card reveal"><b>05</b><i></i><h3>Divergência</h3><p>Abrir territórios e desafiar o primeiro plausível.</p></article>
+        <article class="cog-card reveal"><b>06</b><i></i><h3>Convergência</h3><p>Comparar caminhos por critérios explícitos.</p></article>
+        <article class="cog-card reveal"><b>07</b><i></i><h3>Execução</h3><p>Transformar decisão em trabalho de alta qualidade.</p></article>
+        <article class="cog-card reveal"><b>08</b><i></i><h3>Crítica</h3><p>Procurar falhas antes que o mundo as encontre.</p></article>
+        <article class="cog-card reveal"><b>09</b><i></i><h3>Verificação</h3><p>Testar fatos, cálculos, técnica e conformidade.</p></article>
+        <article class="cog-card reveal"><b>10</b><i></i><h3>Simulação</h3><p>Antecipar reações e efeitos de segunda ordem.</p></article>
+        <article class="cog-card reveal"><b>11</b><i></i><h3>Governança</h3><p>Controlar acesso, risco, gates e aceite.</p></article>
+        <article class="cog-card reveal"><b>12</b><i></i><h3>Aprendizado</h3><p>Converter resultado em vantagem proprietária.</p></article>
+      </div>
+    </section>
 
-<section class="slide" data-title="Maker vs Judge"><div class="number">07 / 10</div><div class="wrap grid2"><div><p class="eyebrow reveal">06 · MAKER ≠ JUDGE</p><h2 class="reveal d2">Quem cria não dá o aceite final.</h2><p class="kicker reveal d3">A qualidade sobe quando o trabalho enfrenta oposição independente. O Red Team tenta destruir a solução; os Judges avaliam por critérios explícitos; alguns têm direito de veto.</p></div><div class="flow reveal d3"><div class="step"><span>M</span><div><b>Maker</b><small>constrói a melhor solução possível</small></div></div><div class="step"><span>R</span><div><b>Red Team</b><small>procura fraquezas, riscos e clichês</small></div></div><div class="step"><span>J</span><div><b>Judge</b><small>avalia estratégia, craft, marca, dados e execução</small></div></div><div class="step"><span>V</span><div><b>Veto</b><small>fact check · legal/risk · data · technical QA</small></div></div></div></div></section>
+    <section class="scene workflow" id="workflow" data-title="WORKFLOW" data-short="Fluxo">
+      <div class="workflow-sticky">
+        <div class="section-head compact reveal"><p class="overline">04 · WORKFLOW ADAPTATIVO</p><h2>O briefing atravessa o OS.</h2><p>A profundidade muda. A disciplina não.</p></div>
+        <div class="job-simulator reveal">
+          <div class="sim-controls" role="group" aria-label="Escolha um job para simular">
+            <button type="button" class="active" data-job="campaign">Campanha</button>
+            <button type="button" data-job="dashboard">Site / dashboard</button>
+            <button type="button" data-job="deck">Apresentação executiva</button>
+          </div>
+          <div class="job-card"><span>JOB / <b id="jobCode">C-014</b></span><h3 id="jobTitle">Lançar uma campanha que aumente consideração</h3><div><em>Risco <strong id="jobRisk">R3</strong></em><em>Modo <strong id="jobMode">Professional</strong></em><em>Meta <strong id="jobGoal">Brand lift</strong></em></div></div>
+          <div class="flow-track" id="flowTrack" aria-live="polite">
+            <div class="flow-node active" data-step="0"><i>01</i><b>INTAKE</b><span>intenção</span></div><div class="flow-link"><i></i></div>
+            <div class="flow-node" data-step="1"><i>02</i><b>DIAGNOSE</b><span>problema real</span></div><div class="flow-link"><i></i></div>
+            <div class="flow-node" data-step="2"><i>03</i><b>ROUTE</b><span>célula</span></div><div class="flow-link"><i></i></div>
+            <div class="flow-node" data-step="3"><i>04</i><b>MAKE</b><span>produção</span></div><div class="flow-link gate-link"><i></i></div>
+            <div class="flow-node red-node" data-step="4"><i>!</i><b>RED TEAM</b><span>interrupção</span></div><div class="flow-link"><i></i></div>
+            <div class="flow-node" data-step="5"><i>06</i><b>DELIVER</b><span>aceite</span></div>
+          </div>
+          <div class="called-row"><span>Especialistas convocados</span><div id="calledAgents"></div><button id="runJob" type="button"><i aria-hidden="true"></i> Simular job</button></div>
+          <p class="simulation-status" id="simulationStatus" aria-live="polite">Pronto para percorrer o sistema.</p>
+        </div>
+      </div>
+    </section>
 
-<section class="slide" data-title="Memória"><div class="number">08 / 10</div><div class="wrap"><p class="eyebrow reveal">07 · GRAAL BRAIN</p><h2 class="reveal d2">Memória em camadas.</h2><p class="kicker reveal d3">O diferencial não é o modelo. É o conhecimento proprietário acumulado: decisões, aprendizados, preferências, campanhas, resultados, guidelines e padrões de qualidade.</p><div class="grid4 reveal d4"><div class="card"><strong>Institutional</strong><p>cultura · processos · templates · métodos</p></div><div class="card"><strong>Client</strong><p>marca · histórico · público · feedback</p></div><div class="card"><strong>Project</strong><p>brief · decisões · arquivos · status</p></div><div class="card"><strong>Learned</strong><p>padrões consolidados a partir de resultados</p></div></div><div class="chiprow reveal d4"><span class="chip">Knowledge Graph</span><span class="chip">Decision Log</span><span class="chip">Assumption Register</span><span class="chip">Risk Register</span><span class="chip">Memory Curator</span></div></div></section>
+    <section class="scene cells" id="cells" data-title="CÉLULAS" data-short="Células">
+      <div class="section-head reveal"><p class="overline">05 · SPECIALIST CELLS</p><h2>A equipe nasce<br><span>do problema.</span></h2><p>Senioridade real. Contexto compartilhado. Privilégio mínimo.</p></div>
+      <div class="cell-marquee reveal" aria-label="Especialidades disponíveis">
+        <div><span>STRATEGY</span><span>CREATIVE</span><span>MEDIA</span><span>EXPERIENCE</span><span>SOCIAL</span><span>DIGITAL</span><span>DATA</span><span>AV + GAMES</span></div>
+      </div>
+      <div class="cell-showcase">
+        <article class="feature-card reveal"><span>BUSINESS</span><h3>Strategy Cell</h3><p>Researcher · Brand Strategist · Growth · Executive Synthesizer</p><dl><div><dt>Lê</dt><dd>mercado, briefing, evidência</dd></div><div><dt>Entrega</dt><dd>diagnóstico, tese, KPI</dd></div></dl></article>
+        <article class="feature-card reveal"><span>MAKING</span><h3>Creative Cell</h3><p>ECD · Art Director · Copy · Motion · Idea Expander</p><dl><div><dt>Lê</dt><dd>estratégia, cultura, marca</dd></div><div><dt>Entrega</dt><dd>plataforma, conceito, craft</dd></div></dl></article>
+        <article class="feature-card reveal"><span>SYSTEMS</span><h3>Digital + Data</h3><p>Requirements · UX · UI · Frontend · Analytics · Auditor</p><dl><div><dt>Lê</dt><dd>necessidade, dados, regras</dd></div><div><dt>Entrega</dt><dd>produto, insight, medição</dd></div></dl></article>
+      </div>
+    </section>
 
-<section class="slide" data-title="Aprendizado"><div class="number">09 / 10</div><div class="wrap grid2"><div><p class="eyebrow reveal">08 · LEARNING LOOP</p><h2 class="reveal d2">Cada projeto melhora o próximo.</h2><p class="kicker reveal d3">Feedback não fica preso no chat. Resultados alimentam post-mortem, memória e evals. O sistema compara versões de agentes contra gold standards internos e mede evolução.</p></div><div class="flow reveal d4"><div class="step"><span>→</span><div><b>Delivery</b><small>trabalho executado</small></div></div><div class="step"><span>→</span><div><b>Measurement</b><small>resultado observado</small></div></div><div class="step"><span>→</span><div><b>Post-mortem</b><small>o que repetir · abandonar · corrigir</small></div></div><div class="step"><span>↻</span><div><b>Memory + Evals</b><small>o sistema se atualiza</small></div></div></div></div></section>
+    <section class="scene adversarial" id="adversarial" data-title="OPOSIÇÃO" data-short="Red Team">
+      <div class="maker-side reveal"><p class="overline">06 · MAKER</p><h2>Constrói para<br>funcionar.</h2><div class="maker-object"><span>IDEIA 01</span><span>ESTRATÉGIA 02</span><span>EXECUÇÃO 03</span></div></div>
+      <div class="rupture reveal" aria-hidden="true"><i></i><b>VS</b><i></i></div>
+      <div class="judge-side reveal"><p class="overline red">07 · JUDGE + GRAAL RED</p><h2>Ataca para<br><span>fortalecer.</span></h2><ul><li>Isso resolve o problema?</li><li>É próprio desta marca?</li><li>A evidência sustenta?</li><li>O que acontece depois?</li><li>Onde pode quebrar?</li></ul></div>
+      <div class="veto-stamp reveal"><span>QUALITY GATE</span><b>VETO</b><p>Fact · Brand · Legal · Data · Technical</p></div>
+    </section>
 
-<section class="slide" data-title="North Star"><div class="number">10 / 10</div><div class="wrap"><p class="eyebrow reveal">09 · NORTH STAR</p><h2 class="reveal d2">De assistentes a uma organização que aprende.</h2><div class="grid4 reveal d3"><div class="card"><strong>1.0 Assistants</strong><p>humanos pedem, agentes executam</p></div><div class="card"><strong>2.0 Specialists</strong><p>domínios com alta especialização</p></div><div class="card"><strong>3.0 Organization</strong><p>delegação, crítica, arbitragem e governança</p></div><div class="card"><strong>4.0 Learning</strong><p>resultado vira conhecimento proprietário</p></div></div><div class="rule reveal d4"></div><p class="quote reveal d4">A vantagem competitiva deixa de estar no modelo e passa a estar no <strong>sistema construído ao redor dele.</strong></p></div><div class="footer-note">GRAAL OS · inteligência como infraestrutura</div></section>
+    <section class="scene trust" id="trust" data-title="CONFIANÇA" data-short="Risco">
+      <div class="section-head reveal"><p class="overline">08 · RISCO E CONFIANÇA</p><h2>Cautela não é um prompt.<br><span>É infraestrutura.</span></h2></div>
+      <div class="risk-meter reveal" aria-label="Escala de risco de R0 a R5">
+        <div class="risk-line"><i></i></div>
+        <div><b>R0</b><span>Trivial</span></div><div><b>R1</b><span>Baixo</span></div><div><b>R2</b><span>Moderado</span></div><div><b>R3</b><span>Importante</span></div><div><b>R4</b><span>Crítico</span></div><div><b>R5</b><span>Alto impacto</span></div>
+      </div>
+      <div class="confidence-grid">
+        <article class="confidence-card reveal"><span class="state known">KNOWN</span><strong>94%</strong><p>Evidência suficiente</p><i style="--value:94%"></i></article>
+        <article class="confidence-card reveal"><span class="state inferred">INFERRED</span><strong>72%</strong><p>Conclusão indireta</p><i style="--value:72%"></i></article>
+        <article class="confidence-card reveal"><span class="state assumed">ASSUMED</span><strong>45%</strong><p>Hipótese operacional</p><i style="--value:45%"></i></article>
+        <article class="confidence-card reveal"><span class="state unknown">UNKNOWN</span><strong>—</strong><p>Informação insuficiente</p><i style="--value:8%"></i></article>
+      </div>
+      <p class="trust-note reveal">Quanto maior o impacto, mais fontes, revisores, testes e direito de veto.</p>
+    </section>
 
-<script>
-const slides=[...document.querySelectorAll('.slide')],nav=document.getElementById('nav'),progress=document.getElementById('progress');slides.forEach((s,i)=>{s.id='s'+(i+1);const a=document.createElement('a');a.href='#'+s.id;a.title=s.dataset.title||('Slide '+(i+1));nav.appendChild(a)});const dots=[...nav.children];const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){slides.forEach(x=>x.classList.remove('active'));e.target.classList.add('active');const i=slides.indexOf(e.target);dots.forEach(x=>x.classList.remove('active'));dots[i]?.classList.add('active');progress.style.width=((i+1)/slides.length*100)+'%'}}),{threshold:.55});slides.forEach(s=>io.observe(s));slides[0].classList.add('active');dots[0].classList.add('active');progress.style.width=(100/slides.length)+'%';
-function go(d){const active=document.querySelector('.slide.active');let i=Math.max(0,slides.indexOf(active));i=Math.min(slides.length-1,Math.max(0,i+d));slides[i].scrollIntoView({behavior:'smooth'})}document.getElementById('prev').addEventListener('click',()=>go(-1));document.getElementById('next').addEventListener('click',()=>go(1));addEventListener('keydown',e=>{if(['ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();go(1)}if(['ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(-1)}if(e.key==='Home'){e.preventDefault();slides[0].scrollIntoView({behavior:'smooth'})}if(e.key==='End'){e.preventDefault();slides.at(-1).scrollIntoView({behavior:'smooth'})}});addEventListener('pointermove',e=>{document.documentElement.style.setProperty('--mx',e.clientX+'px');document.documentElement.style.setProperty('--my',e.clientY+'px')});
-</script>
-</body></html>
+    <section class="scene brain" id="brain" data-title="GRAAL BRAIN" data-short="Memória">
+      <div class="brain-copy reveal"><p class="overline">09 · MEMÓRIA EM CAMADAS</p><h2>O modelo pensa.<br><span>A memória diferencia.</span></h2><p>O conhecimento proprietário não mora em um chat. Ele é curado, conectado e atualizado.</p></div>
+      <div class="memory-stack reveal" aria-label="Camadas de memória do GRAAL Brain">
+        <button type="button" data-memory="institutional"><span>04</span><b>INSTITUTIONAL</b><em>métodos · cultura · standards</em></button>
+        <button type="button" data-memory="client"><span>03</span><b>CLIENT</b><em>marca · histórico · preferências</em></button>
+        <button type="button" data-memory="project"><span>02</span><b>PROJECT</b><em>brief · decisões · arquivos</em></button>
+        <button type="button" data-memory="learned"><span>01</span><b>LEARNED</b><em>resultados · padrões · evals</em></button>
+        <div class="brain-core"><i></i><b>GRAAL<br>BRAIN</b></div>
+      </div>
+      <div class="memory-artifacts reveal"><span>Knowledge Graph</span><span>Decision Log</span><span>Assumption Register</span><span>Risk Register</span><span>Memory Curator</span></div>
+    </section>
+
+    <section class="scene loop" id="loop" data-title="LEARNING LOOP" data-short="Loop">
+      <div class="section-head centered reveal"><p class="overline">10 · COMPOUND INTELLIGENCE</p><h2>Cada projeto melhora<br><span>o próximo.</span></h2></div>
+      <div class="learning-orbit reveal" aria-label="Ciclo contínuo de aprendizado">
+        <div class="loop-ring" aria-hidden="true"><i></i></div>
+        <article class="loop-node l-deliver"><b>01</b><span>DELIVER</span><p>trabalho no mundo</p></article>
+        <article class="loop-node l-measure"><b>02</b><span>MEASURE</span><p>efeito observado</p></article>
+        <article class="loop-node l-learn"><b>03</b><span>LEARN</span><p>padrão extraído</p></article>
+        <article class="loop-node l-update"><b>04</b><span>UPDATE</span><p>memória + evals</p></article>
+        <div class="loop-center"><strong>+1</strong><span>PROPRIETARY<br>ADVANTAGE</span></div>
+      </div>
+      <p class="loop-caption reveal">Feedback deixa de ser comentário. Vira capacidade institucional.</p>
+    </section>
+
+    <section class="scene evolution" id="evolution" data-title="EVOLUÇÃO" data-short="Evolução">
+      <div class="section-head reveal"><p class="overline">11 · ROAD TO AUTONOMY</p><h2>De ferramenta a<br><span>organização que aprende.</span></h2></div>
+      <div class="evolution-track reveal">
+        <article><span>1.0</span><h3>Assistants</h3><p>Humanos pedem.<br>Agentes executam.</p><i></i></article>
+        <article><span>2.0</span><h3>Specialists</h3><p>Domínios ganham<br>alta especialização.</p><i></i></article>
+        <article><span>3.0</span><h3>Organization</h3><p>Delegação, oposição<br>e governança.</p><i></i></article>
+        <article class="current"><span>4.0</span><h3>Learning OS</h3><p>Resultado vira<br>conhecimento próprio.</p><i></i></article>
+      </div>
+    </section>
+
+    <section class="scene north-star" id="north-star" data-title="NORTH STAR" data-short="Visão">
+      <div class="north-beam" aria-hidden="true"></div>
+      <div class="north-copy reveal">
+        <p class="overline">12 · NORTH STAR</p>
+        <h2>A inteligência como<br><span>infraestrutura.</span></h2>
+        <p>A vantagem competitiva deixa de estar no modelo<br>e passa a viver no sistema construído ao redor dele.</p>
+        <div class="north-lockup"><span>GRAAL</span><b>OS</b><i></i><em>Think. Make. Challenge. Learn.</em></div>
+        <a href="#hero" class="restart">Reiniciar jornada <span aria-hidden="true">↑</span></a>
+      </div>
+      <footer><span>GRAAL.HUB © 2026</span><span>COGNITIVE OPERATING SYSTEM</span></footer>
+    </section>
+  </main>
+
+  <script src="/graal-os/app.js" defer></script>
+</body>
+</html>

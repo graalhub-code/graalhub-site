@@ -6,6 +6,12 @@ const nextConfig: NextConfig = {
     dangerouslyAllowSVG: true,
     contentDispositionType: "attachment",
   },
+  async rewrites() {
+    return [
+      { source: "/graal-os", destination: "/graal-os/index.html" },
+      { source: "/graal-os/", destination: "/graal-os/index.html" },
+    ];
+  },
 };
 
 export default nextConfig;
