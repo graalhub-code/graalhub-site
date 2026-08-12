@@ -53,6 +53,14 @@
     railLinks.forEach((link, i) => link.classList.toggle('active', i === index));
     chapterIndex.textContent = String(index + 1).padStart(2, '0');
     chapterTitle.textContent = section.dataset.title;
+    const chapterFlash = $('#chapterFlash');
+    if (!reduceMotion && chapterFlash && document.body.classList.contains('director-mode') && !document.body.classList.contains('is-booting') && chapterFlash.dataset.last !== String(index)) {
+      chapterFlash.dataset.last = String(index);
+      chapterFlash.querySelector('b').textContent = section.dataset.short || section.dataset.title;
+      chapterFlash.classList.remove('fire');
+      requestAnimationFrame(() => chapterFlash.classList.add('fire'));
+      setTimeout(() => chapterFlash.classList.remove('fire'), 880);
+    }
     if (!reduceMotion && !section.classList.contains('scene-seen')) {
       section.classList.add('scene-seen','scene-enter');
       setTimeout(() => section.classList.remove('scene-enter'), 800);
@@ -341,7 +349,94 @@
     addEventListener('resize',fitArchitecture);fitArchitecture();
   }
 
+  /* Cinematic boot — intentionally finite and always skippable. */
+  const bootSequence = $('#bootSequence');
+  const skipBoot = $('#skipBoot');
+  let bootTimer;
+  const finishBoot = () => {
+    clearTimeout(bootTimer);
+    document.body.classList.remove('is-booting');
+    bootSequence?.classList.add('done');
+    setTimeout(() => bootSequence?.setAttribute('aria-hidden','true'), 1100);
+  };
+  if (bootSequence) {
+    if (reduceMotion || sessionStorage.getItem('graal-boot-seen')) finishBoot();
+    else {
+      bootTimer = setTimeout(() => { sessionStorage.setItem('graal-boot-seen','1'); finishBoot(); }, 2350);
+      skipBoot?.addEventListener('click', finishBoot);
+    }
+  }
+
+  /* A lightweight generative field replaces decorative stock imagery. */
+  const systemField = $('#systemField');
+  if (systemField && !reduceMotion) {
+    const field = systemField.getContext('2d');
+    let fieldRatio = 1, fieldW = innerWidth, fieldH = innerHeight, fieldRaf = 0, fieldTime = 0;
+    const pointer = { x:innerWidth*.72, y:innerHeight*.45 };
+    const points = Array.from({length: innerWidth < 700 ? 22 : 48}, (_,i) => ({
+      seed:i*9.73, x:Math.random(), y:Math.random(), speed:.18+Math.random()*.4, size:.5+Math.random()*1.8
+    }));
+    const fitField = () => {
+      fieldRatio = Math.min(devicePixelRatio || 1, 1.6); fieldW=innerWidth;fieldH=innerHeight;
+      systemField.width=Math.round(fieldW*fieldRatio);systemField.height=Math.round(fieldH*fieldRatio);
+      field.setTransform(fieldRatio,0,0,fieldRatio,0,0);
+    };
+    const drawField = now => {
+      fieldTime=now*.00018;field.clearRect(0,0,fieldW,fieldH);
+      const scrollPhase=scrollY/Math.max(document.documentElement.scrollHeight,1);
+      const visible=points.map(p=>{
+        const x=(p.x*fieldW+Math.sin(fieldTime*p.speed*9+p.seed)*54+scrollPhase*fieldW*.2)%fieldW;
+        const y=(p.y*fieldH+Math.cos(fieldTime*p.speed*7+p.seed)*42+scrollPhase*fieldH*.35)%fieldH;
+        return {x:x<0?x+fieldW:x,y:y<0?y+fieldH:y,p};
+      });
+      visible.forEach((a,i)=>{
+        const dx=a.x-pointer.x,dy=a.y-pointer.y,d=Math.hypot(dx,dy);
+        if(d<230){field.strokeStyle=`rgba(224,64,48,${(1-d/230)*.16})`;field.lineWidth=.6;field.beginPath();field.moveTo(a.x,a.y);field.lineTo(pointer.x,pointer.y);field.stroke()}
+        for(let j=i+1;j<visible.length;j++){const b=visible[j],dd=Math.hypot(a.x-b.x,a.y-b.y);if(dd<125){field.strokeStyle=`rgba(247,234,217,${(1-dd/125)*.055})`;field.beginPath();field.moveTo(a.x,a.y);field.lineTo(b.x,b.y);field.stroke()}}
+        field.fillStyle=d<180?'rgba(255,116,102,.72)':'rgba(247,234,217,.26)';field.beginPath();field.arc(a.x,a.y,a.p.size,0,Math.PI*2);field.fill();
+      });
+      fieldRaf=requestAnimationFrame(drawField);
+    };
+    addEventListener('pointermove',e=>{pointer.x=e.clientX;pointer.y=e.clientY},{passive:true});
+    addEventListener('resize',fitField);document.addEventListener('visibilitychange',()=>{cancelAnimationFrame(fieldRaf);if(!document.hidden)fieldRaf=requestAnimationFrame(drawField)});
+    fitField();fieldRaf=requestAnimationFrame(drawField);
+  }
+
+  /* Director's Cut: a short, controllable guided edit of the live page. */
+  const directorTrigger = $('#directorTrigger');
+  const filmTrigger = $('#filmTrigger');
+  const directorHud = $('#directorHud');
+  const stopDirectorButton = $('#stopDirector');
+  const directorChapter = $('#directorChapter');
+  const directorProgress = $('#directorProgress');
+  const directorSequence = [0,1,2,3,4,5,6,8,9,11,12];
+  let directorTimer = 0, directorPosition = 0, directing = false;
+  const stopDirector = () => {
+    directing=false;clearTimeout(directorTimer);document.body.classList.remove('director-mode');
+    sections.forEach(section=>section.classList.remove('director-active'));
+    directorHud?.classList.remove('active');directorTrigger?.setAttribute('aria-pressed','false');
+  };
+  const playDirectorChapter = () => {
+    if(!directing || directorPosition>=directorSequence.length){stopDirector();return}
+    const section=sections[directorSequence[directorPosition]];
+    sections.forEach(item=>item.classList.toggle('director-active',item===section));
+    section.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'start'});
+    directorChapter.textContent=`${String(directorPosition+1).padStart(2,'0')} / ${section.dataset.title}`;
+    directorProgress.style.width=`${((directorPosition+1)/directorSequence.length)*100}%`;
+    if(section.id==='workflow') setTimeout(()=>$('#runJob')?.click(),900);
+    if(section.id==='architecture-film') setTimeout(()=>$('#architecturePlay')?.click(),1100);
+    directorPosition+=1;directorTimer=setTimeout(playDirectorChapter,section.id==='architecture-film'?6200:3900);
+  };
+  const startDirector = () => {
+    stopDirector();directing=true;directorPosition=0;document.body.classList.add('director-mode');
+    directorHud?.classList.add('active');directorTrigger?.setAttribute('aria-pressed','true');finishBoot();playDirectorChapter();
+  };
+  directorTrigger?.addEventListener('click',()=>directing?stopDirector():startDirector());
+  filmTrigger?.addEventListener('click',startDirector);stopDirectorButton?.addEventListener('click',stopDirector);
+  addEventListener('wheel',()=>{if(directing)stopDirector()},{passive:true});
+
   document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && directing) { stopDirector(); return; }
     if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
     if (/button|a|input/i.test(document.activeElement.tagName)) return;
     const current = sections.findIndex(section => section.getBoundingClientRect().top > -innerHeight * .4 && section.getBoundingClientRect().top < innerHeight * .6);
