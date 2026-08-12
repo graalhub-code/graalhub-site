@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, type CSSProperties } from "react";
 import Reveal from "./Reveal";
 import SectionLabel from "./SectionLabel";
 import { useLocale } from "@/lib/locale-context";
@@ -10,26 +10,31 @@ import { useLocale } from "@/lib/locale-context";
 // size the marquee displays it instead of inheriting the blur of a single
 // low-res canvas stretched across dozens of logos. New clients just get
 // pushed onto one of the two arrays below.
-type Logo = { src: string; alt: string };
+// optional per-logo scale multiplier — most logos share one uniform height
+// (see LogoTile below), but a few read visually smaller/bigger than their
+// neighbors even at the same box height (thin wordmarks, tightly-drawn
+// marks), so a small per-logo nudge corrects that without disturbing the
+// shared baseline everyone else still uses.
+type Logo = { src: string; alt: string; scale?: number };
 
 const ROW_1: Logo[] = [
-  { src: "/marcas/claro.webp", alt: "Claro" },
-  { src: "/marcas/pepsi.webp", alt: "Pepsi" },
+  { src: "/marcas/claro.webp", alt: "Claro", scale: 0.85 },
+  { src: "/marcas/pepsi.webp", alt: "Pepsi", scale: 1.2 },
   { src: "/marcas/brahma.webp", alt: "Brahma" },
-  { src: "/marcas/corona-extra.webp", alt: "Corona Extra" },
-  { src: "/marcas/gatorade.webp", alt: "Gatorade" },
-  { src: "/marcas/spaten.webp", alt: "Spaten" },
+  { src: "/marcas/corona-extra.webp", alt: "Corona Extra", scale: 1.2 },
+  { src: "/marcas/gatorade.webp", alt: "Gatorade", scale: 1.2 },
+  { src: "/marcas/spaten.webp", alt: "Spaten", scale: 1.2 },
   { src: "/marcas/ballantines.webp", alt: "Ballantine's" },
   { src: "/marcas/track-field.webp", alt: "Track&Field" },
   { src: "/marcas/99-taxis.webp", alt: "99 Táxis" },
-  { src: "/marcas/pantene.webp", alt: "Pantene Pro-V" },
+  { src: "/marcas/pantene.webp", alt: "Pantene Pro-V", scale: 1.25 },
   { src: "/marcas/bauducco.webp", alt: "Bauducco" },
   { src: "/marcas/lor.webp", alt: "L'Or" },
   { src: "/marcas/becel.webp", alt: "Becel" },
   { src: "/marcas/nestle.webp", alt: "Nestlé" },
   { src: "/marcas/kibon.webp", alt: "Kibon" },
   { src: "/marcas/multishow.webp", alt: "Multishow" },
-  { src: "/marcas/praya.webp", alt: "Praya" },
+  { src: "/marcas/praya.webp", alt: "Praya", scale: 1.2 },
   { src: "/marcas/governo-bahia.webp", alt: "Governo do Estado da Bahia" },
   { src: "/marcas/salvador.webp", alt: "Prefeitura de Salvador" },
 ];
@@ -42,7 +47,7 @@ const ROW_2: Logo[] = [
   { src: "/marcas/adumar.webp", alt: "Adumar" },
   { src: "/marcas/blue-bay-realty.webp", alt: "Blue Bay Realty S.A." },
   { src: "/marcas/colegio-integral.webp", alt: "Colégio Integral" },
-  { src: "/marcas/debrito.webp", alt: "De Brito Brasil" },
+  { src: "/marcas/debrito.webp", alt: "De Brito Brasil", scale: 1.2 },
   { src: "/marcas/ssa-mapping.webp", alt: "SSA Mapping" },
   { src: "/marcas/afropunk.webp", alt: "Afropunk" },
   { src: "/marcas/or.webp", alt: "OR" },
@@ -56,7 +61,7 @@ const ROW_2: Logo[] = [
   { src: "/marcas/idw.webp", alt: "IDW" },
 ];
 
-function LogoTile({ src, alt }: Logo) {
+function LogoTile({ src, alt, scale = 1 }: Logo) {
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
@@ -78,8 +83,15 @@ function LogoTile({ src, alt }: Logo) {
   // wide wordmarks (Track&Field, Hiperideal, Boi Dourado) from swallowing
   // the row — those few end up very slightly shorter than the rest, which
   // reads far better than letting them dominate.
+  //
+  // The base height/max-width are multiplied by --s (the per-logo scale,
+  // 1 by default) so a handful of marks can be nudged bigger or smaller
+  // than the shared baseline without every other logo's math changing.
   return (
-    <div className="relative mx-4 flex h-9 min-w-[46px] max-w-[108px] shrink-0 items-center justify-center sm:h-11 sm:min-w-[60px] sm:max-w-[152px]">
+    <div
+      className="relative mx-4 flex h-[calc(2.25rem*var(--s))] min-w-[46px] max-w-[calc(108px*var(--s))] shrink-0 items-center justify-center sm:h-[calc(2.75rem*var(--s))] sm:min-w-[60px] sm:max-w-[calc(152px*var(--s))]"
+      style={{ "--s": scale } as CSSProperties}
+    >
       {!loaded && (
         <div
           className="skeleton absolute inset-2 rounded-[3px]"
