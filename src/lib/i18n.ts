@@ -131,8 +131,8 @@ export const DICT = {
     },
     contato: {
       label: "06 / Próximo passo",
-      h2Pre: "Vamos conversar sobre a sua ",
-      h2Red: "performance?",
+      h2Pre: "Vamos encontrar o seu ",
+      h2Red: "Graal?",
       body: "Conte para a gente onde a sua marca quer chegar. Fazemos um diagnóstico do seu investimento em mídia — sem custo e sem compromisso.",
       formNome: "Nome",
       formNomePh: "Seu nome",
@@ -290,8 +290,8 @@ export const DICT = {
     },
     contato: {
       label: "06 / Next step",
-      h2Pre: "Let's talk about your ",
-      h2Red: "performance?",
+      h2Pre: "Let's find your ",
+      h2Red: "Graal?",
       body: "Tell us where your brand wants to go. We'll run a diagnosis of your media investment — free, no strings attached.",
       formNome: "Name",
       formNomePh: "Your name",
@@ -449,8 +449,8 @@ export const DICT = {
     },
     contato: {
       label: "06 / Próximo paso",
-      h2Pre: "¿Vamos a hablar sobre tu ",
-      h2Red: "performance?",
+      h2Pre: "¿Vamos a encontrar tu ",
+      h2Red: "Graal?",
       body: "Cuéntanos hasta dónde quiere llegar tu marca. Hacemos un diagnóstico de tu inversión en medios — sin costo y sin compromiso.",
       formNome: "Nombre",
       formNomePh: "Tu nombre",
