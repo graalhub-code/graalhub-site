@@ -78,7 +78,7 @@ function LogoTile({ src, alt }: Logo) {
   // the row — those few end up very slightly shorter than the rest, which
   // reads far better than letting them dominate.
   return (
-    <div className="relative mx-4 flex h-11 min-w-[56px] max-w-[130px] shrink-0 items-center justify-center sm:h-14 sm:min-w-[72px] sm:max-w-[190px]">
+    <div className="relative mx-4 flex h-9 min-w-[46px] max-w-[108px] shrink-0 items-center justify-center sm:h-11 sm:min-w-[60px] sm:max-w-[152px]">
       {!loaded && (
         <div
           className="skeleton absolute inset-2 rounded-[3px]"
@@ -145,7 +145,7 @@ export default function Marcas() {
           the marquee runs edge-to-edge to the true viewport edge instead of
           stopping short at the content gutter like the heading above it. */}
       <div className="-mx-[var(--gap)] border-t border-[var(--line)]">
-        <Reveal className="flex flex-col gap-2 py-10">
+        <Reveal className="flex flex-col gap-8 py-10 sm:gap-10">
           <Row logos={ROW_1} />
           <Row logos={ROW_2} reverse />
         </Reveal>
