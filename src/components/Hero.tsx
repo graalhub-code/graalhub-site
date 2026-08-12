@@ -22,11 +22,10 @@ export default function Hero() {
       id="top"
       className="t-dark grid min-h-[92vh] grid-cols-12 items-end border-b border-[var(--line)] bg-[var(--bg)] px-[var(--gap)] text-[var(--ink)]"
     >
-      <div className="col-span-12 flex justify-between border-b border-[var(--line)] py-[22px] font-mono text-[10.5px] tracking-[0.18em] text-[var(--stone)] uppercase">
+      {/* geo coordinates now live only in the footer, per JP's request —
+          this bar just carries the kicker. */}
+      <div className="col-span-12 border-b border-[var(--line)] py-[22px] font-mono text-[10.5px] tracking-[0.18em] text-[var(--stone)] uppercase">
         <span>{t.hero.kicker}</span>
-        <span className="hidden sm:inline text-[var(--red)]">
-          {t.hero.geo}
-        </span>
       </div>
 
       <div className="col-span-12 md:col-span-9 py-16 md:py-[88px]">

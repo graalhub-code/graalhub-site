@@ -67,15 +67,18 @@ function LogoTile({ src, alt }: Logo) {
     }
   }, []);
 
-  // Fixed box (both width AND height capped) instead of a height-only
-  // constraint — with only a height cap, a wide wordmark (Track&Field)
-  // fills much more horizontal space than a square mark (SSA Mapping) at
-  // the same height, so the square one reads as smaller/blurrier even
-  // though the source image is just as sharp. Capping both dimensions and
-  // letting object-contain fit inside evens out how much visual weight
-  // each logo carries, regardless of its native aspect ratio.
+  // Height-only sizing (not a fixed w+h box) — every logo now shares the
+  // same tight crop margin around its mark (see the retrim step in the
+  // extraction pipeline), so pinning every logo to the same HEIGHT and
+  // letting width follow its natural aspect is what actually reads as
+  // "same size" across a wall this varied: a square icon and a wide
+  // wordmark both look correctly, consistently sized because the eye
+  // reads height first. A max-width safety cap keeps the handful of very
+  // wide wordmarks (Track&Field, Hiperideal, Boi Dourado) from swallowing
+  // the row — those few end up very slightly shorter than the rest, which
+  // reads far better than letting them dominate.
   return (
-    <div className="relative mx-4 flex h-11 w-20 shrink-0 items-center justify-center sm:h-14 sm:w-28">
+    <div className="relative mx-4 flex h-11 min-w-[56px] max-w-[130px] shrink-0 items-center justify-center sm:h-14 sm:min-w-[72px] sm:max-w-[190px]">
       {!loaded && (
         <div
           className="skeleton absolute inset-2 rounded-[3px]"
@@ -87,7 +90,7 @@ function LogoTile({ src, alt }: Logo) {
         ref={imgRef}
         src={src}
         alt={alt}
-        className="max-h-full max-w-full object-contain"
+        className="h-full w-auto max-w-full object-contain"
         onLoad={() => setLoaded(true)}
       />
     </div>
@@ -137,8 +140,11 @@ export default function Marcas() {
       </div>
       {/* logos scroll straight over the section's own light background now —
           no dark band behind them — separated by a hairline so the two
-          rows still read as a distinct "logo wall" module. */}
-      <div className="border-t border-[var(--line)]">
+          rows still read as a distinct "logo wall" module. -mx-[var(--gap)]
+          cancels out the section's own side padding just for this block, so
+          the marquee runs edge-to-edge to the true viewport edge instead of
+          stopping short at the content gutter like the heading above it. */}
+      <div className="-mx-[var(--gap)] border-t border-[var(--line)]">
         <Reveal className="flex flex-col gap-2 py-10">
           <Row logos={ROW_1} />
           <Row logos={ROW_2} reverse />
