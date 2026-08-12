@@ -38,7 +38,7 @@ export const DICT = {
       kicker: "O nome tem peso",
       h2Pre: '"Santo graal" não é força de expressão. ',
       h2Red: "É performance.",
-      lead: 'GRAAL.hub usa essa metáfora de propósito: o símbolo máximo da busca pela solução perfeita, centralizando marketing e publicidade em Salvador — o "centro" estratégico de conexões e resultados da marca.',
+      lead: "GRAAL.hub usa essa metáfora de propósito: o símbolo máximo da busca pela solução perfeita — planejada, medida e conquistada a partir de Salvador.",
       items: [
         {
           tag: "Expressão popular",
@@ -197,7 +197,7 @@ export const DICT = {
       kicker: "The name carries weight",
       h2Pre: '"Holy grail" isn\'t a figure of speech. ',
       h2Red: "It's performance.",
-      lead: "GRAAL.hub uses this metaphor with purpose: the ultimate symbol of the search for the perfect solution, centralizing marketing and advertising from Salvador — the brand's strategic center of connections and results.",
+      lead: "GRAAL.hub uses this metaphor with purpose: the ultimate symbol of the search for the perfect solution — planned, measured and won from Salvador.",
       items: [
         {
           tag: "Popular expression",
@@ -356,7 +356,7 @@ export const DICT = {
       kicker: "El nombre pesa",
       h2Pre: '"Santo grial" no es una figura retórica. ',
       h2Red: "Es performance.",
-      lead: 'GRAAL.hub usa esta metáfora con propósito: el símbolo máximo de la búsqueda de la solución perfecta, centralizando marketing y publicidad desde Salvador — el "centro" estratégico de conexiones y resultados de la marca.',
+      lead: "GRAAL.hub usa esta metáfora con propósito: el símbolo máximo de la búsqueda de la solución perfecta — planeada, medida y conquistada desde Salvador.",
       items: [
         {
           tag: "Expresión popular",
