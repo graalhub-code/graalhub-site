@@ -40,6 +40,14 @@
   --color-stone-dim: var(--stone-dim);
   --font-sans: "Montserrat", sans-serif;
   --font-mono: "Geist Mono", monospace;
+  --font-display: "Ibarra Real Nova", serif;
+}
+
+/* serif display face — only used inside the "Capitol" direction (/capitol)
+   to match the purchased template's actual typography. Production headings
+   elsewhere on the site stay on Montserrat and never reference this class. */
+.font-display {
+  font-family: var(--font-display);
 }
 
 /* base-layer resets — kept inside Tailwind's own `base` layer (instead of

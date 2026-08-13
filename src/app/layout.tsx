@@ -6,6 +6,12 @@ import "@fontsource/montserrat/500.css";
 import "@fontsource/montserrat/600.css";
 import "@fontsource/geist-mono/400.css";
 import "@fontsource/geist-mono/500.css";
+// serif display face used only by the "Capitol" direction (see /capitol) —
+// production headings stay on Montserrat, this is additive and doesn't
+// touch anything outside components that opt in via the .font-display
+// utility class (see globals.css).
+import "@fontsource/ibarra-real-nova/400.css";
+import "@fontsource/ibarra-real-nova/600-italic.css";
 import "./globals.css";
 import { LocaleProvider } from "@/lib/locale-context";
 
