@@ -17,7 +17,7 @@ export const DICT = {
       contato: "Contato",
     },
     hero: {
-      kicker: "Hub de comunicação e mídia · Salvador — Brasil",
+      kicker: "Hub de comunicação e mídia",
       geo: "Salvador, BA · -12.9747° -38.4767°",
       line1: "Não é sorte.",
       line2Pre: "É ",
@@ -38,7 +38,7 @@ export const DICT = {
       kicker: "O nome tem peso",
       h2Pre: '"Santo graal" não é força de expressão. ',
       h2Red: "É performance.",
-      lead: "GRAAL.hub usa essa metáfora de propósito: o símbolo máximo da busca pela solução perfeita — planejada, medida e conquistada.",
+      lead: 'GRAAL.hub usa essa metáfora de propósito: o símbolo máximo da busca pela solução perfeita, centralizando marketing e publicidade em Salvador — o "centro" estratégico de conexões e resultados da marca.',
       items: [
         {
           tag: "Expressão popular",
@@ -131,8 +131,8 @@ export const DICT = {
     },
     contato: {
       label: "06 / Próximo passo",
-      h2Pre: "Vamos encontrar o seu ",
-      h2Red: "Graal?",
+      h2Pre: "Vamos conversar sobre a sua ",
+      h2Red: "performance?",
       body: "Conte para a gente onde a sua marca quer chegar. Fazemos um diagnóstico do seu investimento em mídia — sem custo e sem compromisso.",
       formNome: "Nome",
       formNomePh: "Seu nome",
@@ -176,7 +176,7 @@ export const DICT = {
       contato: "Contact",
     },
     hero: {
-      kicker: "Media & communications hub · Salvador — Brazil",
+      kicker: "Media & communications hub",
       geo: "Salvador, BA · -12.9747° -38.4767°",
       line1: "It's not luck.",
       line2Pre: "It's ",
@@ -197,7 +197,7 @@ export const DICT = {
       kicker: "The name carries weight",
       h2Pre: '"Holy grail" isn\'t a figure of speech. ',
       h2Red: "It's performance.",
-      lead: "GRAAL.hub uses this metaphor with purpose: the ultimate symbol of the search for the perfect solution — planned, measured and won.",
+      lead: "GRAAL.hub uses this metaphor with purpose: the ultimate symbol of the search for the perfect solution, centralizing marketing and advertising from Salvador — the brand's strategic center of connections and results.",
       items: [
         {
           tag: "Popular expression",
@@ -290,8 +290,8 @@ export const DICT = {
     },
     contato: {
       label: "06 / Next step",
-      h2Pre: "Let's find your ",
-      h2Red: "Graal?",
+      h2Pre: "Let's talk about your ",
+      h2Red: "performance?",
       body: "Tell us where your brand wants to go. We'll run a diagnosis of your media investment — free, no strings attached.",
       formNome: "Name",
       formNomePh: "Your name",
@@ -335,7 +335,7 @@ export const DICT = {
       contato: "Contacto",
     },
     hero: {
-      kicker: "Hub de comunicación y medios · Salvador — Brasil",
+      kicker: "Hub de comunicación y medios",
       geo: "Salvador, BA · -12.9747° -38.4767°",
       line1: "No es suerte.",
       line2Pre: "Es ",
@@ -356,7 +356,7 @@ export const DICT = {
       kicker: "El nombre pesa",
       h2Pre: '"Santo grial" no es una figura retórica. ',
       h2Red: "Es performance.",
-      lead: "GRAAL.hub usa esta metáfora con propósito: el símbolo máximo de la búsqueda de la solución perfecta — planeada, medida y conquistada.",
+      lead: 'GRAAL.hub usa esta metáfora con propósito: el símbolo máximo de la búsqueda de la solución perfecta, centralizando marketing y publicidad desde Salvador — el "centro" estratégico de conexiones y resultados de la marca.',
       items: [
         {
           tag: "Expresión popular",
@@ -449,8 +449,8 @@ export const DICT = {
     },
     contato: {
       label: "06 / Próximo paso",
-      h2Pre: "¿Vamos a encontrar tu ",
-      h2Red: "Graal?",
+      h2Pre: "¿Vamos a hablar sobre tu ",
+      h2Red: "performance?",
       body: "Cuéntanos hasta dónde quiere llegar tu marca. Hacemos un diagnóstico de tu inversión en medios — sin costo y sin compromiso.",
       formNome: "Nombre",
       formNomePh: "Tu nombre",
