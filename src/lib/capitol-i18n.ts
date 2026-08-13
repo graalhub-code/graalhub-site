@@ -1,0 +1,436 @@
+import type { Locale } from "./i18n";
+
+/**
+ * Copy exclusivo da direção visual "Capitol" (ver /capitol e
+ * HeroCapitol.tsx). Vive separado do DICT de produção (i18n.ts) de
+ * propósito — nada aqui deve tocar o texto que já está no ar em graalhub.com
+ * enquanto essa direção ainda está em revisão. Se/quando o Capitol virar a
+ * home oficial, este conteúdo migra pra dentro de i18n.ts substituindo o
+ * que existe hoje.
+ */
+export const CAPITOL_DICT = {
+  pt: {
+    manifesto: {
+      label: "01 / Manifesto",
+      h2: "Há quem busque a sorte. Nós buscamos performance.",
+      p1: "O Santo Graal nunca foi sobre a taça. Era sobre a busca — a certeza de que existe uma resposta perfeita, e a disciplina de ir atrás dela quando todo mundo já desistiu de procurar.",
+      p2Pre:
+        "Na mídia, o Graal é o encontro exato entre marca e audiência — no canal certo, no momento certo, com a mensagem certa. Não se acha por sorte. ",
+      p2B: "Planeja-se. Mede-se. Conquista-se.",
+      quote:
+        "Nascemos da união de frentes que corriam separadas — offline e digital, promo e dados, filmes e planilhas. Somos o centro onde essas frentes convergem.",
+    },
+    leituras: {
+      label: "02 / Três leituras",
+      kicker: "O nome tem peso",
+      h2Pre: '"Santo graal" não é força de expressão. ',
+      h2Red: "É performance.",
+      lead: 'GRAAL.hub usa essa metáfora de propósito: o símbolo máximo da busca pela solução perfeita, centralizando marketing e publicidade em Salvador — o "centro" estratégico de conexões e resultados da marca.',
+      items: [
+        {
+          tag: "Expressão popular",
+          title: "O achado raro",
+          body: 'Hoje, "santo graal" virou metáfora pra qualquer objetivo supremo — a solução definitiva pra um problema difícil demais pra resolver sozinho.',
+        },
+        {
+          tag: "Tecnologia & I.A.",
+          title: "A inteligência geral",
+          body: "Em IA, é a AGI: capaz de igualar ou superar a cognição humana em qualquer tarefa. Na mídia, é decidir com dados em qualquer canal, sem achismo.",
+        },
+        {
+          tag: "Finanças",
+          title: "Retorno sem risco",
+          body: 'É a estratégia de investimento ideal: retorno consistente, risco zero. Trocando "investimento" por "mídia", é exatamente o que planejamos.',
+        },
+      ],
+    },
+    pilares: {
+      label: "03 / O que fazemos",
+      kicker: "Da estratégia à execução",
+      h2Pre: "Tudo converge pro ",
+      h2Red: "planejamento.",
+      lead: "Uma operação só, cobrindo cada etapa entre a ideia da marca e o resultado medido — sem times soltos, sem informação perdida na transição de uma agência pra outra.",
+      calloutLabel: "Um só time",
+      calloutBody:
+        "Mídia, estratégia, marca e ativação sob o mesmo teto. Decisão mais rápida, dado circulando sem atrito, marca com uma só voz do planejamento à entrega.",
+      cards: [
+        {
+          tag: "01 · A especialidade",
+          title: "Mídia",
+          body: "Planejamento e compra de mídia offline (TV, rádio, OOH, impressos) e digital (patrocinados, Google Ads, programática, vídeo).",
+          hot: true,
+        },
+        {
+          tag: "02",
+          title: "Estratégia",
+          body: "Planejamento de comunicação e inteligência de mercado para decidir com dados, não com achismo.",
+          hot: false,
+        },
+        {
+          tag: "03",
+          title: "Marca",
+          body: "Branding e comunicação integrada — visual, gráfica e digital — para projetos que precisam de uma só voz.",
+          hot: false,
+        },
+        {
+          tag: "04",
+          title: "Ativação",
+          body: "Promo e live marketing com o G.hub; produção audiovisual e fotografia com a Funway.",
+          hot: false,
+        },
+      ],
+      offlineLabel: "Offline",
+      offline: [
+        { h: "TV aberta e fechada", p: "Planejamento, negociação e compra" },
+        { h: "Rádio", p: "Praças e programações sob medida" },
+        { h: "Mídia exterior · OOH", p: "Estático, digital e mobiliário urbano" },
+        { h: "Impressos e especiais", p: "Jornal, revista e projetos de mídia" },
+      ],
+      digitalLabel: "Digital",
+      digital: [
+        { h: "Anúncios patrocinados", p: "Meta Ads, TikTok Ads e social" },
+        { h: "Google Ads", p: "Search, display e YouTube" },
+        { h: "Mídia programática", p: "DV360, Rich Media e DOOH" },
+        { h: "Vídeo e áudio", p: "YouTube, streaming e podcasts" },
+      ],
+      cert: "Equipe certificada · Google Digital Academy · Meta Blueprint",
+    },
+    nucleo: {
+      label: "04 / O núcleo",
+      kicker: "Um centro de performance, muitas conexões",
+      h2Pre: "O núcleo ",
+      h2Red: "GRAAL.",
+      items: [
+        {
+          title: "Promo & live marketing",
+          body: "Engajamento com a marca em estratégias offline, no meio do público.",
+        },
+        {
+          title: "AdTech proprietária",
+          body: "Rich Media de alto impacto, áudio em streaming e DOOH programático.",
+        },
+        {
+          title: "Parceiro audiovisual",
+          body: "Filmes publicitários, clipes, documentários e fotografia.",
+        },
+      ],
+    },
+    marcas: {
+      label: "05 / Boas companhias",
+      h2Pre: "Marcas que ",
+      h2Red: "performam",
+      h2Post: " conosco.",
+    },
+    contato: {
+      label: "06 / Próximo passo",
+      h2Pre: "Vamos conversar sobre a sua ",
+      h2Red: "performance?",
+      body: "Conte para a gente onde a sua marca quer chegar. Fazemos um diagnóstico do seu investimento em mídia — sem custo e sem compromisso.",
+      formNome: "Nome",
+      formNomePh: "Seu nome",
+      formEmpresa: "Empresa",
+      formEmpresaPh: "Sua empresa",
+      formEmail: "E-mail",
+      formEmailPh: "voce@empresa.com",
+      formMensagem: "Mensagem",
+      formMensagemPh: "O que sua marca precisa?",
+      submit: "Enviar mensagem",
+      loading: "Enviando…",
+      successLabel: "Mensagem enviada",
+      successBody:
+        "Recebemos sua mensagem — voltamos com um diagnóstico em breve.",
+    },
+    footer: {
+      tag: "Não é sorte. É performance. Hub de comunicação e mídia em Salvador, Bahia.",
+      navLabel: "Navegação",
+      contatoLabel: "Contato",
+      idiomaLabel: "Idioma",
+      copyright: "© 2026 GRAAL.hub",
+      geo: "Salvador, Bahia, Brasil · -12.9747°, -38.4767°",
+    },
+  },
+
+  en: {
+    manifesto: {
+      label: "01 / Manifesto",
+      h2: "Some search for luck. We search for performance.",
+      p1: "The Holy Grail was never about the cup. It was about the search — the certainty that a perfect answer exists, and the discipline to chase it after everyone else has given up looking.",
+      p2Pre:
+        "In media, the Grail is the exact meeting point between brand and audience — the right channel, the right moment, the right message. It isn't found by luck. ",
+      p2B: "It's planned. It's measured. It's won.",
+      quote:
+        "We were born from the union of fronts that used to run apart — offline and digital, promo and data, films and spreadsheets. We're the center where those fronts converge.",
+    },
+    leituras: {
+      label: "02 / Three readings",
+      kicker: "The name carries weight",
+      h2Pre: '"Holy grail" isn\'t a figure of speech. ',
+      h2Red: "It's performance.",
+      lead: "GRAAL.hub uses this metaphor with purpose: the ultimate symbol of the search for the perfect solution, centralizing marketing and advertising from Salvador — the brand's strategic center of connections and results.",
+      items: [
+        {
+          tag: "Popular expression",
+          title: "The rare find",
+          body: 'Today, "holy grail" is a metaphor for any supreme goal — the definitive solution to a problem too hard to solve alone.',
+        },
+        {
+          tag: "Technology & A.I.",
+          title: "General intelligence",
+          body: "In AI, it's AGI: matching or surpassing human cognition at any task. In media, it's deciding with data across every channel, no guesswork.",
+        },
+        {
+          tag: "Finance",
+          title: "Return without risk",
+          body: "It's the ideal investment strategy: consistent returns, zero risk. Swap \"investment\" for \"media\" and that's exactly what we plan.",
+        },
+      ],
+    },
+    pilares: {
+      label: "03 / What we do",
+      kicker: "From strategy to execution",
+      h2Pre: "Everything converges on ",
+      h2Red: "planning.",
+      lead: "One single operation, covering every step between a brand's idea and its measured result — no loose teams, no information lost handing off between agencies.",
+      calloutLabel: "One team",
+      calloutBody:
+        "Media, strategy, brand and activation under one roof. Faster decisions, data moving without friction, one voice for the brand from planning to delivery.",
+      cards: [
+        {
+          tag: "01 · The specialty",
+          title: "Media",
+          body: "Planning and buying offline media (TV, radio, OOH, print) and digital (sponsored, Google Ads, programmatic, video).",
+          hot: true,
+        },
+        {
+          tag: "02",
+          title: "Strategy",
+          body: "Communication planning and market intelligence to decide with data, not guesswork.",
+          hot: false,
+        },
+        {
+          tag: "03",
+          title: "Brand",
+          body: "Branding and integrated communication — visual, graphic and digital — for projects that need a single voice.",
+          hot: false,
+        },
+        {
+          tag: "04",
+          title: "Activation",
+          body: "Promo and live marketing with G.hub; audiovisual production and photography with Funway.",
+          hot: false,
+        },
+      ],
+      offlineLabel: "Offline",
+      offline: [
+        { h: "Broadcast & cable TV", p: "Planning, negotiation and buying" },
+        { h: "Radio", p: "Markets and schedules tailored to fit" },
+        { h: "Out-of-home · OOH", p: "Static, digital and street furniture" },
+        { h: "Print & special formats", p: "Newspaper, magazine and media projects" },
+      ],
+      digitalLabel: "Digital",
+      digital: [
+        { h: "Sponsored ads", p: "Meta Ads, TikTok Ads and social" },
+        { h: "Google Ads", p: "Search, display and YouTube" },
+        { h: "Programmatic media", p: "DV360, Rich Media and DOOH" },
+        { h: "Video & audio", p: "YouTube, streaming and podcasts" },
+      ],
+      cert: "Certified team · Google Digital Academy · Meta Blueprint",
+    },
+    nucleo: {
+      label: "04 / The core",
+      kicker: "One center of performance, many connections",
+      h2Pre: "The GRAAL ",
+      h2Red: "core.",
+      items: [
+        {
+          title: "Promo & live marketing",
+          body: "Brand engagement through offline strategies, right in the middle of the crowd.",
+        },
+        {
+          title: "Proprietary AdTech",
+          body: "High-impact Rich Media, streaming audio and programmatic DOOH.",
+        },
+        {
+          title: "Audiovisual partner",
+          body: "Commercials, music videos, documentaries and photography.",
+        },
+      ],
+    },
+    marcas: {
+      label: "05 / Good company",
+      h2Pre: "Brands that ",
+      h2Red: "perform",
+      h2Post: " with us.",
+    },
+    contato: {
+      label: "06 / Next step",
+      h2Pre: "Let's talk about your ",
+      h2Red: "performance?",
+      body: "Tell us where your brand wants to go. We'll run a diagnosis of your media investment — free, no strings attached.",
+      formNome: "Name",
+      formNomePh: "Your name",
+      formEmpresa: "Company",
+      formEmpresaPh: "Your company",
+      formEmail: "Email",
+      formEmailPh: "you@company.com",
+      formMensagem: "Message",
+      formMensagemPh: "What does your brand need?",
+      submit: "Send message",
+      loading: "Sending…",
+      successLabel: "Message sent",
+      successBody:
+        "We've received your message — we'll get back to you with a diagnosis soon.",
+    },
+    footer: {
+      tag: "It's not luck. It's performance. Media and communications hub in Salvador, Bahia.",
+      navLabel: "Navigation",
+      contatoLabel: "Contact",
+      idiomaLabel: "Language",
+      copyright: "© 2026 GRAAL.hub",
+      geo: "Salvador, Bahia, Brazil · -12.9747°, -38.4767°",
+    },
+  },
+
+  es: {
+    manifesto: {
+      label: "01 / Manifiesto",
+      h2: "Hay quien busca la suerte. Nosotros buscamos performance.",
+      p1: "El Santo Grial nunca fue sobre la copa. Era sobre la búsqueda — la certeza de que existe una respuesta perfecta, y la disciplina de perseguirla cuando todos ya desistieron de buscar.",
+      p2Pre:
+        "En medios, el Grial es el encuentro exacto entre marca y audiencia — en el canal correcto, en el momento correcto, con el mensaje correcto. No se encuentra por suerte. ",
+      p2B: "Se planea. Se mide. Se conquista.",
+      quote:
+        "Nacimos de la unión de frentes que corrían por separado — offline y digital, promoción y datos, films y planillas. Somos el centro donde esos frentes convergen.",
+    },
+    leituras: {
+      label: "02 / Tres lecturas",
+      kicker: "El nombre pesa",
+      h2Pre: '"Santo grial" no es una figura retórica. ',
+      h2Red: "Es performance.",
+      lead: 'GRAAL.hub usa esta metáfora con propósito: el símbolo máximo de la búsqueda de la solución perfecta, centralizando marketing y publicidad desde Salvador — el "centro" estratégico de conexiones y resultados de la marca.',
+      items: [
+        {
+          tag: "Expresión popular",
+          title: "El hallazgo raro",
+          body: 'Hoy, "santo grial" es metáfora de cualquier objetivo supremo — la solución definitiva para un problema demasiado difícil de resolver solo.',
+        },
+        {
+          tag: "Tecnología e IA",
+          title: "La inteligencia general",
+          body: "En IA, es la AGI: igualar o superar la cognición humana en cualquier tarea. En medios, es decidir con datos en cualquier canal, sin suposiciones.",
+        },
+        {
+          tag: "Finanzas",
+          title: "Retorno sin riesgo",
+          body: 'Es la estrategia de inversión ideal: retorno consistente, riesgo cero. Cambiando "inversión" por "medios", es exactamente lo que planeamos.',
+        },
+      ],
+    },
+    pilares: {
+      label: "03 / Qué hacemos",
+      kicker: "De la estrategia a la ejecución",
+      h2Pre: "Todo converge en la ",
+      h2Red: "planificación.",
+      lead: "Una sola operación, cubriendo cada etapa entre la idea de la marca y el resultado medido — sin equipos sueltos, sin información perdida al pasar de una agencia a otra.",
+      calloutLabel: "Un solo equipo",
+      calloutBody:
+        "Medios, estrategia, marca y activación bajo el mismo techo. Decisión más rápida, dato circulando sin fricción, marca con una sola voz de la planificación a la entrega.",
+      cards: [
+        {
+          tag: "01 · La especialidad",
+          title: "Medios",
+          body: "Planificación y compra de medios offline (TV, radio, OOH, impresos) y digital (patrocinados, Google Ads, programática, video).",
+          hot: true,
+        },
+        {
+          tag: "02",
+          title: "Estrategia",
+          body: "Planificación de comunicación e inteligencia de mercado para decidir con datos, no con suposiciones.",
+          hot: false,
+        },
+        {
+          tag: "03",
+          title: "Marca",
+          body: "Branding y comunicación integrada — visual, gráfica y digital — para proyectos que necesitan una sola voz.",
+          hot: false,
+        },
+        {
+          tag: "04",
+          title: "Activación",
+          body: "Promoción y live marketing con G.hub; producción audiovisual y fotografía con Funway.",
+          hot: false,
+        },
+      ],
+      offlineLabel: "Offline",
+      offline: [
+        { h: "TV abierta y de pago", p: "Planificación, negociación y compra" },
+        { h: "Radio", p: "Plazas y programaciones a medida" },
+        { h: "Publicidad exterior · OOH", p: "Estático, digital y mobiliario urbano" },
+        { h: "Impresos y especiales", p: "Periódico, revista y proyectos de medios" },
+      ],
+      digitalLabel: "Digital",
+      digital: [
+        { h: "Anuncios patrocinados", p: "Meta Ads, TikTok Ads y social" },
+        { h: "Google Ads", p: "Search, display y YouTube" },
+        { h: "Medios programáticos", p: "DV360, Rich Media y DOOH" },
+        { h: "Video y audio", p: "YouTube, streaming y podcasts" },
+      ],
+      cert: "Equipo certificado · Google Digital Academy · Meta Blueprint",
+    },
+    nucleo: {
+      label: "04 / El núcleo",
+      kicker: "Un centro de performance, muchas conexiones",
+      h2Pre: "El núcleo ",
+      h2Red: "GRAAL.",
+      items: [
+        {
+          title: "Promoción y live marketing",
+          body: "Conexión con la marca en estrategias offline, en medio del público.",
+        },
+        {
+          title: "AdTech propia",
+          body: "Rich Media de alto impacto, audio en streaming y DOOH programático.",
+        },
+        {
+          title: "Socio audiovisual",
+          body: "Comerciales, videoclips, documentales y fotografía.",
+        },
+      ],
+    },
+    marcas: {
+      label: "05 / Buenas compañías",
+      h2Pre: "Marcas que ",
+      h2Red: "performan",
+      h2Post: " con nosotros.",
+    },
+    contato: {
+      label: "06 / Próximo paso",
+      h2Pre: "¿Vamos a hablar sobre tu ",
+      h2Red: "performance?",
+      body: "Cuéntanos hasta dónde quiere llegar tu marca. Hacemos un diagnóstico de tu inversión en medios — sin costo y sin compromiso.",
+      formNome: "Nombre",
+      formNomePh: "Tu nombre",
+      formEmpresa: "Empresa",
+      formEmpresaPh: "Tu empresa",
+      formEmail: "Correo electrónico",
+      formEmailPh: "tu@empresa.com",
+      formMensagem: "Mensaje",
+      formMensagemPh: "¿Qué necesita tu marca?",
+      submit: "Enviar mensaje",
+      loading: "Enviando…",
+      successLabel: "Mensaje enviado",
+      successBody: "Recibimos tu mensaje — te contactaremos pronto con un diagnóstico.",
+    },
+    footer: {
+      tag: "No es suerte. Es performance. Hub de comunicación y medios en Salvador, Bahía.",
+      navLabel: "Navegación",
+      contatoLabel: "Contacto",
+      idiomaLabel: "Idioma",
+      copyright: "© 2026 GRAAL.hub",
+      geo: "Salvador, Bahía, Brasil · -12.9747°, -38.4767°",
+    },
+  },
+} as const;
+
+export type CapitolLocale = Locale;
+export type CapitolDict = (typeof CAPITOL_DICT)[CapitolLocale];
