@@ -10,6 +10,20 @@ import type { Locale } from "./i18n";
  */
 export const CAPITOL_DICT = {
   pt: {
+    // bloco lateral + cards flutuantes da Hero (ver HeroCapitol.tsx) — texto
+    // real substituindo os placeholders do template ("MOVE BEYOND LIMITS",
+    // "28%", "IN ONE SHOT"): sem estatística inventada, só credencial que já
+    // é dita em Pilares e um CTA de fato.
+    heroSide: {
+      h2Line1: "Vá além",
+      h2Em: "da sorte.",
+      body: "Não existe fórmula mágica — existe método. Da estratégia de mídia à ativação, cada decisão nasce de dado, não de achismo.",
+      cta: "Ler o manifesto",
+      badge1Label: "Credencial",
+      badge1Body: "Equipe certificada Google Digital Academy e Meta Blueprint",
+      badge2: "Peça um diagnóstico",
+      drag: "arraste para girar",
+    },
     manifesto: {
       label: "01 / Manifesto",
       h2: "Há quem busque a sorte. Nós buscamos performance.",
@@ -151,6 +165,16 @@ export const CAPITOL_DICT = {
   },
 
   en: {
+    heroSide: {
+      h2Line1: "Move beyond",
+      h2Em: "luck.",
+      body: "There's no magic formula — only method. From media strategy to activation, every decision starts with data, not guesswork.",
+      cta: "Read the manifesto",
+      badge1Label: "Credential",
+      badge1Body: "Team certified by Google Digital Academy and Meta Blueprint",
+      badge2: "Get a free diagnosis",
+      drag: "drag to rotate",
+    },
     manifesto: {
       label: "01 / Manifesto",
       h2: "Some search for luck. We search for performance.",
@@ -292,6 +316,16 @@ export const CAPITOL_DICT = {
   },
 
   es: {
+    heroSide: {
+      h2Line1: "Más allá",
+      h2Em: "de la suerte.",
+      body: "No existe fórmula mágica — existe método. De la estrategia de medios a la activación, cada decisión nace del dato, no de la suposición.",
+      cta: "Leer el manifiesto",
+      badge1Label: "Credencial",
+      badge1Body: "Equipo certificado por Google Digital Academy y Meta Blueprint",
+      badge2: "Pide un diagnóstico",
+      drag: "arrastra para girar",
+    },
     manifesto: {
       label: "01 / Manifiesto",
       h2: "Hay quien busca la suerte. Nosotros buscamos performance.",
