@@ -90,16 +90,19 @@ export default function HeroCapitol() {
 
       {/* bloco de citação lateral — equivalente ao "MOVE BEYOND LIMITS" do
           template, com copy real do hub em vez de texto placeholder */}
-      <div className="absolute top-[86px] right-[var(--gap)] z-20 hidden max-w-[210px] flex-col gap-3 lg:flex">
+      <div className="absolute top-[70px] right-[var(--gap)] z-20 hidden max-w-[190px] flex-col gap-2 lg:flex">
         {/* z-20 (above the z-10 statue column): the template lets this quote
             corner sit slightly over the photo's edge rather than fighting
-            for empty space that doesn't exist at this viewport width */}
-        <h2 className="font-display text-[26px] leading-[1.1] font-normal [text-shadow:0_2px_16px_rgba(0,0,0,0.7)]">
+            for empty space that doesn't exist at this viewport width. Kept
+            deliberately compact (short copy, tight leading) so its footprint
+            clears the floating credential card below it across the whole
+            lg→2xl width range instead of only at one tested viewport. */}
+        <h2 className="font-display text-[22px] leading-[1.1] font-normal [text-shadow:0_2px_16px_rgba(0,0,0,0.7)]">
           {cap.h2Line1}
           <br />
           <em className="not-italic text-[var(--red)]">{cap.h2Em}</em>
         </h2>
-        <p className="text-[13px] leading-[1.7] font-light text-[var(--stone-dim)] [text-shadow:0_2px_12px_rgba(0,0,0,0.8)]">
+        <p className="text-[12.5px] leading-[1.6] font-light text-[var(--stone-dim)] [text-shadow:0_2px_12px_rgba(0,0,0,0.8)]">
           {cap.body}
         </p>
         <a
@@ -234,7 +237,7 @@ export default function HeroCapitol() {
               template ("28%" e "IN ONE SHOT"), mas com conteúdo real em vez
               de estatística inventada: uma credencial que já é dita em
               outro ponto do site, e um CTA curto */}
-          <div className="absolute -right-16 top-32 hidden w-[168px] flex-col gap-1 rounded-[10px] border border-[var(--ink)]/15 bg-[var(--bg)]/85 p-4 shadow-[0_20px_50px_rgba(0,0,0,0.35)] backdrop-blur-md sm:flex">
+          <div className="absolute -right-16 top-44 hidden w-[168px] flex-col gap-1 rounded-[10px] border border-[var(--ink)]/15 bg-[var(--bg)]/85 p-4 shadow-[0_20px_50px_rgba(0,0,0,0.35)] backdrop-blur-md sm:flex">
             <span className="font-mono text-[9px] tracking-[0.14em] text-[var(--red)] uppercase">
               {cap.badge1Label}
             </span>
