@@ -17,7 +17,7 @@ export const CAPITOL_DICT = {
     heroSide: {
       h2Line1: "Vá além",
       h2Em: "da sorte.",
-      body: "Não existe fórmula mágica — existe método. Da estratégia de mídia à ativação, cada decisão nasce de dado, não de achismo.",
+      body: "Não existe fórmula mágica. Só método — do dado à decisão.",
       cta: "Ler o manifesto",
       badge1Label: "Credencial",
       badge1Body: "Equipe certificada Google Digital Academy e Meta Blueprint",
@@ -168,7 +168,7 @@ export const CAPITOL_DICT = {
     heroSide: {
       h2Line1: "Move beyond",
       h2Em: "luck.",
-      body: "There's no magic formula — only method. From media strategy to activation, every decision starts with data, not guesswork.",
+      body: "There's no magic formula. Only method — from data to decision.",
       cta: "Read the manifesto",
       badge1Label: "Credential",
       badge1Body: "Team certified by Google Digital Academy and Meta Blueprint",
@@ -319,7 +319,7 @@ export const CAPITOL_DICT = {
     heroSide: {
       h2Line1: "Más allá",
       h2Em: "de la suerte.",
-      body: "No existe fórmula mágica — existe método. De la estrategia de medios a la activación, cada decisión nace del dato, no de la suposición.",
+      body: "No existe fórmula mágica. Solo método — del dato a la decisión.",
       cta: "Leer el manifiesto",
       badge1Label: "Credencial",
       badge1Body: "Equipo certificado por Google Digital Academy y Meta Blueprint",
